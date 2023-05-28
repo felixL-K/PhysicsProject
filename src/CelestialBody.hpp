@@ -7,19 +7,23 @@ using namespace std;
 #include <math.h>
 
 #include "Vector2D.hpp"
-#include "MainClass.hpp"
+//#include "SolarSystem.hpp"
+
+class SolarSystem;
 
 class CelestialBody {
     private:
-        double diameter = 10;
-        double mass = 10;
-        Vector2D position{0, 0};
-        Vector2D velocity{0, 0};
+        //SolarSystem* solarSystem;
+        double diameter;
+        double mass;
+        Vector2D position;
+        Vector2D velocity;
 
     public:
         // Constructeurs & Destructeur
         CelestialBody();
-        CelestialBody(Vector2D posIn, double massIn);
+        CelestialBody(double diameter, Vector2D posIn);
+        CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity);
         CelestialBody(const CelestialBody &cb); 
         virtual ~CelestialBody(); 
 
@@ -44,8 +48,8 @@ class CelestialBody {
         void newtonGrav(CelestialBody p);
         void updatePosition();
         void checkCollision(CelestialBody p);
+        
 
-        ostream & operator<<(ostream & out);
 
 
 
@@ -54,6 +58,6 @@ class CelestialBody {
 
 #endif
 
-
-
+bool operator==(const CelestialBody& lhs, const CelestialBody& rhs);
+ostream & operator<<(ostream & out, CelestialBody c);
 

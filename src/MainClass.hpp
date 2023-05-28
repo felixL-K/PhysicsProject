@@ -24,7 +24,7 @@ class MainClass {
         
         static double getDeltaTime();
 
-        ostream & operator<<(ostream & out);
+        //ostream & operator<<(ostream & out);
 
 
 };

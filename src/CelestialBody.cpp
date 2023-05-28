@@ -1,15 +1,28 @@
 #include <iostream>
 #include "CelestialBody.hpp"
+#include "SolarSystem.hpp"
+#include "MainClass.hpp"
 
 // Constructeur
-CelestialBody::CelestialBody() {}
+//solarSystem{new SolarSystem{}},
+CelestialBody::CelestialBody() : diameter{10}, mass{10}, position{Vector2D{0,0}}, velocity{Vector2D{0,0}} {
+    SolarSystem::addBody(this);
+}
 
-CelestialBody::CelestialBody(Vector2D posIn, double massIn) : position{posIn}, mass{massIn} {}
+CelestialBody::CelestialBody(double diameter, Vector2D posIn) : diameter{diameter}, mass{10}, position{posIn}, velocity{Vector2D{0,0}} {
+    SolarSystem::addBody(this);
+}
 
-CelestialBody::CelestialBody(const CelestialBody & vect) : position{vect.getPosition()}, mass{vect.getMass()}, velocity{vect.getVelocity()}, diameter{vect.getDiameter()} {}
+CelestialBody::CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity)
+: diameter{diameter},mass{massIn},position{posIn}, velocity{velocity} {}
+
+CelestialBody::CelestialBody(const CelestialBody & vect) 
+: diameter{vect.getDiameter()}, mass{vect.getMass()}, position{vect.getPosition()},  velocity{vect.getVelocity()} {}
+
 
 CelestialBody::~CelestialBody() {
-    cout << "= Destruction d'un CelestialBody =" << endl;
+    // cout << "= Destruction d'un CelestialBody =" << endl;
+    //delete SolarSystem;
 }
 
 /*
@@ -27,9 +40,11 @@ double CelestialBody::getMass() const {
     return mass;
 }
 Vector2D CelestialBody::getPosition() const {
+    // return Vector2D{position};
     return position;
 }
 Vector2D CelestialBody::getVelocity() const {
+    // return Vector2D{velocity};
     return velocity;
 }
 void CelestialBody::setDiameter(double x){
@@ -45,8 +60,8 @@ void CelestialBody::setVelocity(Vector2D x){
     velocity = x;
 }
 
-ostream & CelestialBody::operator<<(ostream & out) {
-    out << "CelestialBody(" << "hahahha" << ")" << endl; 
+ostream & operator<<(ostream & out, CelestialBody c) {
+    out << "CelestialBody(mass=" << c.getMass() << ", " << c.getPosition() << ")" << endl; 
     return out;
 }
 
@@ -82,4 +97,10 @@ void CelestialBody::checkCollision(CelestialBody p){
 
 }
 
-
+bool operator==(const CelestialBody& lhs, const CelestialBody& rhs) {
+    bool sameDiameter = lhs.getDiameter() == rhs.getDiameter();
+    bool sameMass = lhs.getMass() == rhs.getMass();
+    bool samePos = lhs.getPosition() == rhs.getPosition();
+    bool sameVelo = lhs.getVelocity() == rhs.getVelocity();
+    return sameDiameter && sameMass && samePos && sameVelo;
+}

@@ -1,13 +1,19 @@
-#include <iostream>
 #include "Vector2D.hpp"
 
 // Constructeur
+Vector2D::Vector2D() : x{0}, y{0} {}
+
 Vector2D::Vector2D(double vx, double vy) : x{vx}, y{vy} {}
 
 Vector2D::Vector2D(const Vector2D & vect) : x{vect.getX()}, y{vect.getY()} {}
 
 Vector2D::~Vector2D() {
-    cout << "= Destruction de " << *this << " =" << endl;
+    // double vx = this->getX();
+    // double vy = this->getY();
+    // cout << "= Destruction de " << "Vector2D(" << vx << "," << vy << ") " << " =" << endl;
+    // =================================================================
+    // cout << "= Destruction de " << *this << " =" << endl;
+    // boucle infini : le *this creer une copie, qui est affiché, puis dupprimé, dc recopié etc
 }
 
 /*
@@ -25,8 +31,10 @@ double Vector2D::getY() const {
     return y;
 }
 
-ostream & operator<<(ostream & out, Vector2D & v) {
-    out << "Vector2D(" << v.getX() << "," << v.getY() << ")"; 
+ostream & operator<<(ostream & out, Vector2D v) {
+    double vx = v.getX();
+    double vy = v.getY();
+    out << "Vector2D(" << vx << "," << vy << ")"; 
     return out;
 }
 
@@ -59,5 +67,9 @@ float Vector2D::getAngleDegrees(Vector2D target) {
         angleDegree += 360;
     }
     return angleDegree;
+}
+
+bool operator==(const Vector2D& lhs, const Vector2D& rhs) {
+    return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
 }
 
