@@ -1,7 +1,8 @@
 #include "SolarSystem.hpp"
 #include <bits/stdc++.h>
 
-std::vector<std::vector<Vector2D>> SolarSystem::paths = {};
+//std::vector<std::vector<Vector2D>> SolarSystem::paths = {};
+map<CelestialBody*,vector<Vector2D>> SolarSystem::paths = {};
 std::vector<CelestialBody*> SolarSystem::celestialBodys = {};
 
 // Constructeur
@@ -21,8 +22,13 @@ vector<CelestialBody*> SolarSystem::getBodys() {
   return celestialBodys;
 }
 
+map<CelestialBody*,vector<Vector2D>> SolarSystem::getPaths() {
+  return paths;
+}
+
 void SolarSystem::addBody(CelestialBody* body) {
     celestialBodys.push_back(body);
+    addPath(body,body->getPosition());
     return;
 }
 
@@ -30,7 +36,15 @@ void SolarSystem::addBody(CelestialBody* body) {
 
 // }
 
-void SolarSystem::addPath(CelestialBody* body, Vector2D* vect) {
+void SolarSystem::addPath(CelestialBody* body, Vector2D vect) {
+  if(paths.find(body) == paths.end()) {
+    vector<Vector2D> vectvect;
+    paths[body] = vectvect;
+  }
+  if (paths[body].size() >= pathSize) {
+    paths[body].erase(paths[body].begin());
+  }
+  paths[body].push_back(vect);
     // if (paths[body].size() > pathSize) {
     //   paths[body].erase(paths[body].begin());
     //   paths[body].insert(paths[body].begin(),Vector2D(vect));

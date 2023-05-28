@@ -17,8 +17,9 @@ class SolarSystem {
         //static Vector2D[][] paths;
 
     public:
-        static const unsigned int pathSize = 300;
-        static std::vector<std::vector<Vector2D>> paths;
+        static const unsigned int pathSize = 30;
+        //static std::vector<std::vector<Vector2D>> paths;
+        static map<CelestialBody*,vector<Vector2D>> paths;
         static std::vector<CelestialBody*> celestialBodys;
         // Constructeur
         SolarSystem();
@@ -31,9 +32,10 @@ class SolarSystem {
 
         //static map<CelestialBody, vector<Vector2D>> getPaths();
         static vector<CelestialBody*> getBodys();
+        static map<CelestialBody*,vector<Vector2D>> getPaths();
         static void addBody(CelestialBody* body);
         //static vector<Vector2D> getPathOfBody(CelestialBody* body);
-        static void addPath(CelestialBody* body, Vector2D* vect);
+        static void addPath(CelestialBody* body, Vector2D vect);
         static void findIndexBody(CelestialBody* c);
 
 };

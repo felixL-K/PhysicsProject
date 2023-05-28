@@ -9,7 +9,7 @@ CelestialBody::CelestialBody() : diameter{10}, mass{10}, position{Vector2D{0,0}}
     SolarSystem::addBody(this);
 }
 
-CelestialBody::CelestialBody(double diameter, Vector2D posIn) : diameter{diameter}, mass{10}, position{posIn}, velocity{Vector2D{0,0}} {
+CelestialBody::CelestialBody(double massIn, Vector2D posIn) : diameter{10}, mass{massIn}, position{posIn}, velocity{Vector2D{0,0}} {
     SolarSystem::addBody(this);
 }
 
@@ -61,7 +61,7 @@ void CelestialBody::setVelocity(Vector2D x){
 }
 
 ostream & operator<<(ostream & out, CelestialBody c) {
-    out << "CelestialBody(mass=" << c.getMass() << ", " << c.getPosition() << ")" << endl; 
+    out << "CelestialBody(mass=" << c.getMass() << ", " << c.getPosition() << ")" ; 
     return out;
 }
 
@@ -90,6 +90,7 @@ void CelestialBody::newtonGrav(CelestialBody p) {
 
 void CelestialBody::updatePosition(){
     position.add(Vector2D::multiply(velocity, MainClass::getDeltaTime()));
+    SolarSystem::addPath(this,position);
     //addPath(this.position);
 }
 

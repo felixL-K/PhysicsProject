@@ -22,7 +22,7 @@ class CelestialBody {
     public:
         // Constructeurs & Destructeur
         CelestialBody();
-        CelestialBody(double diameter, Vector2D posIn);
+        CelestialBody(double massIn, Vector2D posIn);
         CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity);
         CelestialBody(const CelestialBody &cb); 
         virtual ~CelestialBody(); 
