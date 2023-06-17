@@ -3,6 +3,8 @@
 
 #include <iostream>
 using namespace std;
+#include <cmath>
+#include <math.h>
 
 class Vector2D {
     private:
@@ -11,10 +13,9 @@ class Vector2D {
 
     public:
         // Constructeur
+        Vector2D();
         Vector2D(double vx, double vy);
-        // Constructeur par copie
         Vector2D(const Vector2D &); 
-        // Destructeur
         virtual ~Vector2D(); 
         // Surcharge de l'initialisation
         //Vector2D &operator=(const Vector2D &); 
@@ -24,12 +25,19 @@ class Vector2D {
         double getX() const;
         double getY() const;
 
+        double distance(Vector2D v);
+        void add(double vx, double vy);
+        void add(Vector2D v);
+        static Vector2D multiply(Vector2D pos1, double multiplier);
+        float getAngleDegrees(Vector2D target);
+
 };
 
 
 #endif
 
-ostream & operator<<(ostream & out, Vector2D & d);
+ostream & operator<<(ostream & out, Vector2D c);
+bool operator==(const Vector2D& lhs, const Vector2D& rhs);
 
 
 
