@@ -13,7 +13,7 @@ guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play() {
-    RenderWindow window(VideoMode(system->getDimention().getX(),system->getDimention().getY()),"Rendering the rectangle1.");
+    RenderWindow window(VideoMode(system->getDimension().getX(),system->getDimension().getY()),"Rendering the rectangle1.");
 
     while(window.isOpen()){
         Event event;

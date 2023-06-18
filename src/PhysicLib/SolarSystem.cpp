@@ -3,7 +3,7 @@
 #include "../GUI/guiMain.hpp"
 
 // Constructeur
-SolarSystem::SolarSystem() : paths{}, celestialBodys{}, dimention{800,800} {
+SolarSystem::SolarSystem() : paths{}, celestialBodys{}, dimension{800,800} {
   
 }
 
@@ -23,8 +23,8 @@ map<CelestialBody*,vector<Vector2D>> SolarSystem::getPaths() {
   return paths;
 }
 
-Vector2D SolarSystem::getDimention() {
-  return dimention;
+Vector2D SolarSystem::getDimension() {
+  return dimension;
 }
 
 void SolarSystem::addBody(CelestialBody* body) {
@@ -94,19 +94,29 @@ void SolarSystem::newtonGravAll() {
 }
 
 void SolarSystem::generateRandomObjetPhysique() {
-  // Random Random = new Random();
+  double height = dimension.getX();
+  double width = dimension.getY();;
 
-  // double height = MainClass.interface_utilisateur.dimension.getHeight();
-  // double width = MainClass.interface_utilisateur.dimension.getWidth();
+  
+  double f = (double)rand() / RAND_MAX;
+  double x = f * width;
+  if (x<0) { x = -x; }
 
-  // double x = positiv(Random.nextDouble() * width);
-  // double y = positiv(Random.nextDouble() * height);
-  // double m = positiv(Random.nextDouble() * 500);
-  // double vx = Random.nextGaussian() * 10;
-  // double vy = Random.nextGaussian() * 10;
+  f = (double)rand() / RAND_MAX;
+  double y = f * height;
+  if (y<0) { y = -y; }
 
-  // ObjetPhysique object = new ObjetPhysique(new Vector2D(x, y), m);
-  // object.addForce(new Vector2D(vx, vy));
-  // object.diameter = findDiametre(m);
+  f = (double)rand() / RAND_MAX;
+  double m = f * 500;
+  if (m<0) { m = -m; }
+
+  f = (double)rand() / RAND_MAX;
+  double vx = f * 10;
+  double vy = f * 10;
+
+  CelestialBody object{m, Vector2D{50, 50}, this};
+  //this->addBody(&object);
+  object.addVelocity(Vector2D{vx, vy});
+  //object.diameter = findDiametre(m);
 }
 

@@ -15,7 +15,7 @@ class SolarSystem {
         const unsigned int pathSize = 30;
         map<CelestialBody*,vector<Vector2D>> paths;
         std::vector<CelestialBody*> celestialBodys;
-        Vector2D dimention;
+        Vector2D dimension;
 
     public:
         
@@ -31,7 +31,7 @@ class SolarSystem {
         //static map<CelestialBody, vector<Vector2D>> getPaths();
         vector<CelestialBody*> getBodys();
         map<CelestialBody*,vector<Vector2D>> getPaths();
-        Vector2D getDimention();
+        Vector2D getDimension();
         void addBody(CelestialBody* body);
         // vector<Vector2D> getPathOfBody(CelestialBody* body);
         void addPath(CelestialBody* body, Vector2D vect);
@@ -39,7 +39,7 @@ class SolarSystem {
         void updateAllPositions();
         void newtonGravAll();
 
-        static void generateRandomObjetPhysique();
+        void generateRandomObjetPhysique();
 
 };
 
