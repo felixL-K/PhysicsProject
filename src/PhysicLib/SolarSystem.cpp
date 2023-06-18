@@ -1,12 +1,9 @@
 #include "SolarSystem.hpp"
 #include <bits/stdc++.h>
-
-//std::vector<std::vector<Vector2D>> SolarSystem::paths = {};
-map<CelestialBody*,vector<Vector2D>> SolarSystem::paths = {};
-std::vector<CelestialBody*> SolarSystem::celestialBodys = {};
+#include "../GUI/guiMain.hpp"
 
 // Constructeur
-SolarSystem::SolarSystem() {
+SolarSystem::SolarSystem() : paths{}, celestialBodys{}, dimention{800,800} {
   
 }
 
@@ -24,6 +21,10 @@ vector<CelestialBody*> SolarSystem::getBodys() {
 
 map<CelestialBody*,vector<Vector2D>> SolarSystem::getPaths() {
   return paths;
+}
+
+Vector2D SolarSystem::getDimention() {
+  return dimention;
 }
 
 void SolarSystem::addBody(CelestialBody* body) {
@@ -77,18 +78,16 @@ void SolarSystem::findIndexBody(CelestialBody* ser) {
 }
 
 void SolarSystem::updateAllPositions() {
-  SolarSystem s;
-  for(unsigned int i = 0; i < s.getBodys().size(); i++) {
-    s.getBodys()[i]->updatePosition();
+  for(unsigned int i = 0; i < getBodys().size(); i++) {
+    getBodys()[i]->updatePosition();
   }
 }
 
 void SolarSystem::newtonGravAll() {
-  SolarSystem s;
-  for(unsigned int i = 0; i < s.getBodys().size(); i++) {
-    for(unsigned int j = 0; j < s.getBodys().size(); j++) {
+  for(unsigned int i = 0; i < getBodys().size(); i++) {
+    for(unsigned int j = 0; j < getBodys().size(); j++) {
       if(i != j) {
-        s.getBodys()[i]->newtonGrav(*s.getBodys()[j]);
+        getBodys()[i]->newtonGrav(*getBodys()[j]);
       }
     }
   }

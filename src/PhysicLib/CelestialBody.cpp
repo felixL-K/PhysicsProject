@@ -5,16 +5,16 @@
 
 // Constructeur
 //solarSystem{new SolarSystem{}},
-CelestialBody::CelestialBody() : diameter{10}, mass{10}, position{Vector2D{0,0}}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255} {
-    SolarSystem::addBody(this);
+CelestialBody::CelestialBody(SolarSystem* system) : diameter{10}, mass{10}, position{Vector2D{0,0}}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {
+    system->addBody(this);
 }
 
-CelestialBody::CelestialBody(double massIn, Vector2D posIn) : diameter{10}, mass{massIn}, position{posIn}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255} {
-    SolarSystem::addBody(this);
+CelestialBody::CelestialBody(double massIn, Vector2D posIn, SolarSystem* system) : diameter{10}, mass{massIn}, position{posIn}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {
+    system->addBody(this);
 }
 
-CelestialBody::CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity)
-: diameter{diameter},mass{massIn},position{posIn}, velocity{velocity}, color{rand() % 255, rand() % 255, rand() % 255} {}
+CelestialBody::CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem* system)
+: diameter{diameter},mass{massIn},position{posIn}, velocity{velocity}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {}
 
 CelestialBody::CelestialBody(const CelestialBody & vect) 
 : diameter{vect.getDiameter()}, mass{vect.getMass()}, position{vect.getPosition()},  velocity{vect.getVelocity()}, color{rand() % 255, rand() % 255, rand() % 255} {}
@@ -91,7 +91,7 @@ void CelestialBody::newtonGrav(CelestialBody p) {
 void CelestialBody::updatePosition(){
     //position.add(Vector2D::multiply(velocity, MainClass::getDeltaTime()));
     position.add(velocity);
-    SolarSystem::addPath(this,position);
+    solarSystem->addPath(this,position);
     //addPath(this.position);
 }
 

@@ -7,9 +7,13 @@
 // #include <vector>
 using namespace sf;
 
+guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
+
+}
+
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play() {
-    RenderWindow window(VideoMode(800,800),"Rendering the rectangle1.");
+    RenderWindow window(VideoMode(system->getDimention().getX(),system->getDimention().getY()),"Rendering the rectangle1.");
 
     while(window.isOpen()){
         Event event;
@@ -20,10 +24,9 @@ void guiMain::play() {
             }
         }
         window.clear(Color::Black);
-        SolarSystem system;
-        system.newtonGravAll();
-        system.updateAllPositions();
-        this->drawAllObjects(system,&window);
+        system->newtonGravAll();
+        system->updateAllPositions();
+        this->drawAllObjects(*system,&window);
         window.display();
     }
 }
@@ -40,12 +43,12 @@ int main() {
     SolarSystem system{};
 
     Vector2D v1{10,20};
-    CelestialBody body1{10,v1};
+    CelestialBody body1{10,v1,&system};
     Vector2D v2{50,50};
-    CelestialBody body2{10,v2};
+    CelestialBody body2{10,v2,&system};
     body2.addVelocity(Vector2D{0.5,0});
 
-    guiMain g;
+    guiMain g{&system};
     g.play();
 
     return 0;

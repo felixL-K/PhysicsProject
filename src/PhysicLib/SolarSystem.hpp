@@ -7,20 +7,18 @@ using namespace std;
 #include <vector>
 
 #include "CelestialBody.hpp"
-//#include "Vector2D.hpp"
 
 //class CelestialBody;
 
 class SolarSystem {
     private:
-        
-        //static Vector2D[][] paths;
+        const unsigned int pathSize = 30;
+        map<CelestialBody*,vector<Vector2D>> paths;
+        std::vector<CelestialBody*> celestialBodys;
+        Vector2D dimention;
 
     public:
-        static const unsigned int pathSize = 30;
-        //static std::vector<std::vector<Vector2D>> paths;
-        static map<CelestialBody*,vector<Vector2D>> paths;
-        static std::vector<CelestialBody*> celestialBodys;
+        
         // Constructeur
         SolarSystem();
         // SolarSystem(const SolarSystem &); 
@@ -31,14 +29,15 @@ class SolarSystem {
         //friend ostream & operator<<(ostream &,const SolarSystem &); 
 
         //static map<CelestialBody, vector<Vector2D>> getPaths();
-        static vector<CelestialBody*> getBodys();
-        static map<CelestialBody*,vector<Vector2D>> getPaths();
-        static void addBody(CelestialBody* body);
-        //static vector<Vector2D> getPathOfBody(CelestialBody* body);
-        static void addPath(CelestialBody* body, Vector2D vect);
-        static void findIndexBody(CelestialBody* c);
-        static void updateAllPositions();
-        static void newtonGravAll();
+        vector<CelestialBody*> getBodys();
+        map<CelestialBody*,vector<Vector2D>> getPaths();
+        Vector2D getDimention();
+        void addBody(CelestialBody* body);
+        // vector<Vector2D> getPathOfBody(CelestialBody* body);
+        void addPath(CelestialBody* body, Vector2D vect);
+        void findIndexBody(CelestialBody* c);
+        void updateAllPositions();
+        void newtonGravAll();
 
         static void generateRandomObjetPhysique();
 

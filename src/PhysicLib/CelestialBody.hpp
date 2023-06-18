@@ -15,7 +15,7 @@ class SolarSystem;
 
 class CelestialBody {
     private:
-        //SolarSystem* solarSystem;
+        SolarSystem* solarSystem;
         double diameter;
         double mass;
         Vector2D position;
@@ -24,9 +24,9 @@ class CelestialBody {
 
     public:
         // Constructeurs & Destructeur
-        CelestialBody();
-        CelestialBody(double massIn, Vector2D posIn);
-        CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity);
+        CelestialBody(SolarSystem* system);
+        CelestialBody(double massIn, Vector2D posIn, SolarSystem* system);
+        CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem* system);
         CelestialBody(const CelestialBody &cb); 
         virtual ~CelestialBody(); 
 
