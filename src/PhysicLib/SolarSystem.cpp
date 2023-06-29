@@ -3,7 +3,7 @@
 #include "../GUI/guiMain.hpp"
 
 // Constructeur
-SolarSystem::SolarSystem() : paths{}, celestialBodys{}, dimension{800,800} {
+SolarSystem::SolarSystem() : paths{}, celestialBodys{}, dimension{1000,800} {
   
 }
 
@@ -97,26 +97,30 @@ void SolarSystem::generateRandomObjetPhysique() {
   double height = dimension.getX();
   double width = dimension.getY();;
 
-  
   double f = (double)rand() / RAND_MAX;
   double x = f * width;
   if (x<0) { x = -x; }
+  // cout << "x : " << x << endl;
 
   f = (double)rand() / RAND_MAX;
   double y = f * height;
   if (y<0) { y = -y; }
+  // cout << "y : " << y << endl;
 
   f = (double)rand() / RAND_MAX;
-  double m = f * 500;
+  double m = f * 50;
   if (m<0) { m = -m; }
+  // cout << "m : " << m << endl;
 
   f = (double)rand() / RAND_MAX;
   double vx = f * 10;
+  // cout << "vx : " << vx << endl;
+  f = (double)rand() / RAND_MAX;
   double vy = f * 10;
+  // cout << "vy : " << vy << endl;
 
-  CelestialBody object{m, Vector2D{50, 50}, this};
-  //this->addBody(&object);
-  object.addVelocity(Vector2D{vx, vy});
-  //object.diameter = findDiametre(m);
+  CelestialBody *object = new CelestialBody{m, Vector2D{x, y}, this};
+  object->addVelocity(Vector2D{vx, vy});
+  //object->diameter = findDiametre(m);
+
 }
-

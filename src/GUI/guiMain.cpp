@@ -14,7 +14,8 @@ guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play() {
     RenderWindow window(VideoMode(system->getDimension().getX(),system->getDimension().getY()),"Rendering the rectangle1.");
-
+    window.setPosition(sf::Vector2i(10, 50));
+    
     while(window.isOpen()){
         Event event;
         while(window.pollEvent(event)){
@@ -44,9 +45,11 @@ int main() {
 
     Vector2D v1{10,20};
     CelestialBody body1{10,v1,&system};
-    Vector2D v2{50,50};
-    CelestialBody body2{10,v2,&system};
+    Vector2D v2{400,400};
+    CelestialBody body2{200000,v2,&system};
     body2.addVelocity(Vector2D{0.5,0});
+    for(int i=0;i<100;i++)
+        system.generateRandomObjetPhysique();
 
     guiMain g{&system};
     g.play();
