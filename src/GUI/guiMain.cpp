@@ -15,6 +15,10 @@ guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
 void guiMain::play() {
     RenderWindow window(VideoMode(system->getDimension().getX(),system->getDimension().getY()),"Rendering the rectangle1.");
     window.setPosition(sf::Vector2i(10, 50));
+    sf::Vector2f Center(system->getDimension().getX()/2,system->getDimension().getY()/2);
+    sf::Vector2f HalfSize(2000, 2000);
+    sf::View View1(Center, HalfSize);
+    window.setView(View1);
 
     while(window.isOpen()){
         Event event;

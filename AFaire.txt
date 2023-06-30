@@ -1,5 +1,10 @@
-- proportion tellurique/gazeuse (proche/lointaine)
 - masse volumique + mass = diametre
+- drawPhysicObject center (decallage avec le path)
+
+
+
+
+- proportion tellurique/gazeuse (proche/lointaine)
 - ajout attribut star dans SolarSystem
 - ajout sattelite à PhysicObject
 - ajout collision
