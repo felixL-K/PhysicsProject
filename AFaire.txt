@@ -1,0 +1,19 @@
+- proportion tellurique/gazeuse (proche/lointaine)
+- masse volumique + mass = diametre
+- ajout attribut star dans SolarSystem
+- ajout sattelite à PhysicObject
+- ajout collision
+- QuadTree
+- passage à l'echelle (
+- 3D
+- class Galaxy
+
+
+- changer le calcul de distance (val absolu de dy + val absolu de dx)
+
+
+
+=================================================================================================
+- simulation liquide
+- simulation fractale
+- 

@@ -15,7 +15,7 @@ guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
 void guiMain::play() {
     RenderWindow window(VideoMode(system->getDimension().getX(),system->getDimension().getY()),"Rendering the rectangle1.");
     window.setPosition(sf::Vector2i(10, 50));
-    
+
     while(window.isOpen()){
         Event event;
         while(window.pollEvent(event)){
@@ -28,6 +28,7 @@ void guiMain::play() {
         system->newtonGravAll();
         system->updateAllPositions();
         this->drawAllObjects(*system,&window);
+        this->drawPaths(*system,&window);
         window.display();
     }
 }
@@ -35,6 +36,19 @@ void guiMain::play() {
 void guiMain::drawAllObjects(SolarSystem system, RenderWindow *window) {
     for(unsigned int i = 0; i < system.getBodys().size(); i++) {
         system.getBodys()[i]->drawObject(window);
+    }
+}
+
+void guiMain::drawPaths(SolarSystem system, RenderWindow *window) {
+    for (const auto& kv : system.getPaths()) {
+        for(unsigned int i = 1; i < kv.second.size(); i++) {
+            sf::Vertex line[2];
+            line[0].position = sf::Vector2f(kv.second[i].getX(), kv.second[i].getY());
+            line[0].color  = kv.first->getColor();
+            line[1].position = sf::Vector2f(kv.second[i-1].getX(), kv.second[i-1].getY());
+            line[1].color = kv.first->getColor();
+            window->draw(line, 2, sf::Lines);
+        }
     }
 }
 

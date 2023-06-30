@@ -47,6 +47,9 @@ Vector2D CelestialBody::getVelocity() const {
     // return Vector2D{velocity};
     return velocity;
 }
+sf::Color CelestialBody::getColor() const {
+    return color;
+}
 void CelestialBody::setDiameter(double x){
     diameter = x;
 }

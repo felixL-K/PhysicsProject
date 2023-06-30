@@ -14,6 +14,7 @@ class guiMain {
     public:
         guiMain(SolarSystem* system);
         void drawAllObjects(SolarSystem system, sf::RenderWindow *window);
+        void drawPaths(SolarSystem system, sf::RenderWindow *window);
         void play();
 };
 

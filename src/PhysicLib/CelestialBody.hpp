@@ -40,6 +40,7 @@ class CelestialBody {
         double getMass() const;
         Vector2D getPosition() const;
         Vector2D getVelocity() const;
+        sf::Color getColor() const;
         void setDiameter(double x);
         void setMass(double x);
         void setPosition(Vector2D x);
