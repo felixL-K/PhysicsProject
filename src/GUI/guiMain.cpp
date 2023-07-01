@@ -64,7 +64,7 @@ int main() {
     Vector2D v1{10,20};
     CelestialBody body1{10,v1,&system};
     Vector2D v2{400,400};
-    CelestialBody body2{200000,v2,&system};
+    CelestialBody body2{20000,v2,&system};
     body2.addVelocity(Vector2D{0.5,0});
     for(int i=0;i<100;i++)
         system.generateRandomObjetPhysique();

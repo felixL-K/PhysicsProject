@@ -111,8 +111,11 @@ bool operator==(const CelestialBody& lhs, const CelestialBody& rhs) {
 }
 
 void CelestialBody::drawObject(sf::RenderWindow *window) {
-    sf::CircleShape circle1(diameter);
+    sf::CircleShape circle1;
+    circle1.setRadius(diameter);
     circle1.setFillColor(color);
-    circle1.setPosition(position.getX(),position.getY());
+    circle1.setPosition(position.getX()-diameter/2,position.getY()-diameter/2);
+    circle1.setOrigin (sf::Vector2f(diameter/2,diameter/2));
+    //circle1.setRadius(50);
     window->draw(circle1);
 }
