@@ -6,21 +6,23 @@ using namespace std;
 #include <map>
 #include <vector>
 
-#include "CelestialBody.hpp"
+#include "Planet.hpp"
+#include "Star.hpp"
 
 //class CelestialBody;
 
 class SolarSystem {
     private:
         const unsigned int pathSize = 30;
-        map<CelestialBody*,vector<Vector2D>> paths;
-        std::vector<CelestialBody*> celestialBodys;
+        map<Planet*,vector<Vector2D>> paths;
+        std::vector<Planet*> celestialBodys;
+        Star* star;
         Vector2D dimension;
 
     public:
         
         // Constructeur
-        SolarSystem();
+        SolarSystem(Vector2D center);
         // SolarSystem(const SolarSystem &); 
         // virtual ~SolarSystem(); 
         // Surcharge de l'initialisation
@@ -29,17 +31,19 @@ class SolarSystem {
         //friend ostream & operator<<(ostream &,const SolarSystem &); 
 
         //static map<CelestialBody, vector<Vector2D>> getPaths();
-        vector<CelestialBody*> getBodys();
-        map<CelestialBody*,vector<Vector2D>> getPaths();
+        vector<Planet*> getBodys();
+        map<Planet*,vector<Vector2D>> getPaths();
         Vector2D getDimension();
-        void addBody(CelestialBody* body);
+        Star* getStar();
+        void setStar(Star* s);
+        void addBody(Planet* body);
         // vector<Vector2D> getPathOfBody(CelestialBody* body);
-        void addPath(CelestialBody* body, Vector2D vect);
+        void addPath(Planet* body, Vector2D vect);
         void findIndexBody(CelestialBody* c);
         void updateAllPositions();
         void newtonGravAll();
 
-        void generateRandomObjetPhysique();
+        void generateRandomPlanet();
 
 };
 

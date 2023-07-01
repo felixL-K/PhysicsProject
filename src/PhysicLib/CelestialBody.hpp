@@ -14,7 +14,7 @@ using namespace std;
 class SolarSystem;
 
 class CelestialBody {
-    private:
+    protected:
         SolarSystem* solarSystem;
         double diameter;
         double mass;
@@ -45,12 +45,12 @@ class CelestialBody {
         void setMass(double x);
         void setPosition(Vector2D x);
         void setVelocity(Vector2D x);
+        void setColor(int r, int g, int b);
 
         // real functions begin
         void addVelocity(Vector2D forceIn);
         double distance(CelestialBody p);
         void newtonGrav(CelestialBody p);
-        void updatePosition();
         void checkCollision(CelestialBody p);
         
         void drawObject(sf::RenderWindow *window);

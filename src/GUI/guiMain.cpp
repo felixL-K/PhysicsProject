@@ -41,6 +41,7 @@ void guiMain::drawAllObjects(SolarSystem system, RenderWindow *window) {
     for(unsigned int i = 0; i < system.getBodys().size(); i++) {
         system.getBodys()[i]->drawObject(window);
     }
+    system.getStar()->drawObject(window);
 }
 
 void guiMain::drawPaths(SolarSystem system, RenderWindow *window) {
@@ -59,15 +60,10 @@ void guiMain::drawPaths(SolarSystem system, RenderWindow *window) {
 
 
 int main() {
-    SolarSystem system{};
+    SolarSystem system{Vector2D{400,400}};
 
-    Vector2D v1{10,20};
-    CelestialBody body1{10,v1,&system};
-    Vector2D v2{400,400};
-    CelestialBody body2{20000,v2,&system};
-    body2.addVelocity(Vector2D{0.5,0});
     for(int i=0;i<100;i++)
-        system.generateRandomObjetPhysique();
+        system.generateRandomPlanet();
 
     guiMain g{&system};
     g.play();

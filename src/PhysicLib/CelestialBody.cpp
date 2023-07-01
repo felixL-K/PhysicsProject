@@ -6,11 +6,11 @@
 // Constructeur
 //solarSystem{new SolarSystem{}},
 CelestialBody::CelestialBody(SolarSystem* system) : diameter{10}, mass{10}, position{Vector2D{0,0}}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {
-    system->addBody(this);
+    
 }
 
 CelestialBody::CelestialBody(double massIn, Vector2D posIn, SolarSystem* system) : diameter{10}, mass{massIn}, position{posIn}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {
-    system->addBody(this);
+    
 }
 
 CelestialBody::CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem* system)
@@ -62,6 +62,10 @@ void CelestialBody::setPosition(Vector2D x){
 void CelestialBody::setVelocity(Vector2D x){
     velocity = x;
 }
+void CelestialBody::setColor(int r, int g, int b) {
+    color = sf::Color{r,g,b};
+}
+
 
 ostream & operator<<(ostream & out, CelestialBody c) {
     out << "CelestialBody(mass=" << c.getMass() << ", " << c.getPosition() << ")" ; 
@@ -89,13 +93,6 @@ void CelestialBody::newtonGrav(CelestialBody p) {
         return;
     }
     return;
-}
-
-void CelestialBody::updatePosition(){
-    //position.add(Vector2D::multiply(velocity, MainClass::getDeltaTime()));
-    position.add(velocity);
-    solarSystem->addPath(this,position);
-    //addPath(this.position);
 }
 
 void CelestialBody::checkCollision(CelestialBody p){
