@@ -7,12 +7,12 @@
 #include <iostream>
 int main() {
 
-	SolarSystem system{Vector2D{100,100}};
+	SolarSystem* system = new SolarSystem{Vector2D{100,100}};
 
-    for(int i=0;i<200;i++)
-        system.generateRandomPlanet();
+    for(int i=0;i<100;i++)
+        system->generateRandomPlanet();
 
-    guiMain g{&system};
+    guiMain g{system};
     g.play();
 
 	return 0;

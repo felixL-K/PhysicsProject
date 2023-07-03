@@ -24,6 +24,7 @@ class SolarSystem {
         
         // Constructeur
         SolarSystem(Vector2D center);
+        virtual ~SolarSystem();
         // SolarSystem(const SolarSystem &); 
         // virtual ~SolarSystem(); 
         // Surcharge de l'initialisation

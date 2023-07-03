@@ -57,6 +57,10 @@ void guiMain::drawPaths(SolarSystem system, RenderWindow *window) {
     }
 }
 
+guiMain::~guiMain() {
+    // cout << "deleting guiMain" << endl;
+    // delete system;
+}
 
 
 // int main() {

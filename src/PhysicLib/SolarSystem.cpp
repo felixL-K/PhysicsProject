@@ -11,6 +11,14 @@ SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension
   star = new Star{m,center,this};
 }
 
+SolarSystem::~SolarSystem(){
+  // cout << "deleting SolarSystem" << endl;
+  // for(unsigned int i = 0; i < celestialBodys.size(); i++) {
+  //         delete celestialBodys[i];
+  // }
+  // delete star;
+}
+
 // SolarSystem::SolarSystem(const SolarSystem &) {
 
 // }
