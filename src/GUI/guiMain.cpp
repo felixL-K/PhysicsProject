@@ -59,14 +59,14 @@ void guiMain::drawPaths(SolarSystem system, RenderWindow *window) {
 
 
 
-int main() {
-    SolarSystem system{Vector2D{400,400}};
+// int main() {
+//     SolarSystem system{Vector2D{400,400}};
 
-    for(int i=0;i<100;i++)
-        system.generateRandomPlanet();
+//     for(int i=0;i<200;i++)
+//         system.generateRandomPlanet();
 
-    guiMain g{&system};
-    g.play();
+//     guiMain g{&system};
+//     g.play();
 
-    return 0;
-}
+//     return 0;
+// }
