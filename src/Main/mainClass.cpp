@@ -6,13 +6,8 @@
 
 #include <iostream>
 int main() {
-	std::cout << "hello cmake tests" << std::endl;
-	Vector2D v{1,2};
-    v.add(v);
-    std::cout << v << std::endl;
 
-
-	SolarSystem system{Vector2D{400,400}};
+	SolarSystem system{Vector2D{100,100}};
 
     for(int i=0;i<200;i++)
         system.generateRandomPlanet();

@@ -13,9 +13,9 @@ guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play() {
-    RenderWindow window(VideoMode(system->getDimension().getX(),system->getDimension().getY()),"Rendering the rectangle1.");
+    RenderWindow window(VideoMode(1000,1000),"Rendering the rectangle1.");
     window.setPosition(sf::Vector2i(10, 50));
-    sf::Vector2f Center(system->getDimension().getX()/2,system->getDimension().getY()/2);
+    sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
     sf::Vector2f HalfSize(2000, 2000);
     sf::View View1(Center, HalfSize);
     window.setView(View1);

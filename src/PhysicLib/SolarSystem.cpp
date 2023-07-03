@@ -5,7 +5,7 @@
 double solarMass = 20000;
 
 // Constructeur
-SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{1000,1000} {
+SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{1000,1000}, center{center} {
   double f = (double)rand() / RAND_MAX;
   double m = (f*7.5 + 0.5) * solarMass;
   star = new Star{m,center,this};
@@ -29,6 +29,9 @@ map<Planet*,vector<Vector2D>> SolarSystem::getPaths() {
 
 Vector2D SolarSystem::getDimension() {
   return dimension;
+}
+Vector2D SolarSystem::getCenter() {
+  return center;
 }
 
 void SolarSystem::addBody(Planet* body) {
@@ -99,27 +102,37 @@ void SolarSystem::newtonGravAll() {
 }
 
 void SolarSystem::generateRandomPlanet() {
-  double height = dimension.getX();
-  double width = dimension.getY();;
+  double height = dimension.getX()/2;
+  double width = dimension.getY()/2;
 
   double f = (double)rand() / RAND_MAX;
   double x = f * width;
-  if (x<0) { x = -x; }
+  double neg = (double)rand() / RAND_MAX;
+  if (neg<0.5) {
+    x = -x;
+  }
+  x += center.getX();
+  // if (x<0) { x = -x; }
   // cout << "x : " << x << endl;
 
   f = (double)rand() / RAND_MAX;
   double y = f * height;
-  if (y<0) { y = -y; }
+  neg = (double)rand() / RAND_MAX;
+  if (neg<0.5) {
+    y = -y;
+  }
+  y += center.getY();
+  // if (y<0) { y = -y; }
   // cout << "y : " << y << endl;
 
   f = (double)rand() / RAND_MAX;
   double m = f * 50;
-  if (m<0) { m = -m; }
+  // if (m<0) { m = -m; }
   // cout << "m : " << m << endl;
 
   f = (double)rand() / RAND_MAX;
   double vx = f * 10;
-  double neg = (double)rand() / RAND_MAX;
+  neg = (double)rand() / RAND_MAX;
   if (neg<0.5) {
     vx = -vx;
   }
@@ -136,6 +149,7 @@ void SolarSystem::generateRandomPlanet() {
   object->addVelocity(Vector2D{vx, vy});
   //object->diameter = findDiametre(m);
 
+  // cout << "===============" << endl;
 }
 
 

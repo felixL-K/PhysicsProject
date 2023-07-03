@@ -17,6 +17,7 @@ class SolarSystem {
         map<Planet*,vector<Vector2D>> paths;
         std::vector<Planet*> celestialBodys;
         Star* star;
+        Vector2D center;
         Vector2D dimension;
 
     public:
@@ -34,6 +35,7 @@ class SolarSystem {
         vector<Planet*> getBodys();
         map<Planet*,vector<Vector2D>> getPaths();
         Vector2D getDimension();
+        Vector2D getCenter();
         Star* getStar();
         void setStar(Star* s);
         void addBody(Planet* body);
