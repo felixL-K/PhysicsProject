@@ -22,7 +22,7 @@ Planet::~Planet() {
 
 void Planet::updatePosition(){
     //position.add(Vector2D::multiply(velocity, MainClass::getDeltaTime()));
-    position.add(velocity);
+    position.add(velocity*0.0000000001);
     solarSystem->addPath(this,position);
     //addPath(this.position);
 }

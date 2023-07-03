@@ -7,6 +7,9 @@
 // #include <vector>
 using namespace sf;
 
+double ASTROUNIT2 = 150000000; // in km
+
+
 guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
 
 }
@@ -16,7 +19,7 @@ void guiMain::play() {
     RenderWindow window(VideoMode(1000,1000),"Rendering the rectangle1.");
     window.setPosition(sf::Vector2i(10, 50));
     sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
-    sf::Vector2f HalfSize(2000, 2000);
+    sf::Vector2f HalfSize(5*ASTROUNIT2, 5*ASTROUNIT2);
     sf::View View1(Center, HalfSize);
     window.setView(View1);
 

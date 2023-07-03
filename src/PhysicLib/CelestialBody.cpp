@@ -76,7 +76,7 @@ ostream & operator<<(ostream & out, CelestialBody c) {
 
 // real functions begin
 void CelestialBody::addVelocity(Vector2D forceIn){
-    velocity.add(forceIn);
+    velocity.add(forceIn*0.0000000001);
 }
 
 double CelestialBody::distance(CelestialBody p){
@@ -111,6 +111,11 @@ bool operator==(const CelestialBody& lhs, const CelestialBody& rhs) {
 
 void CelestialBody::drawObject(sf::RenderWindow *window) {
     sf::CircleShape circle1;
+    // if(diameter<1000000) {
+    //     circle1.setRadius(1000000);
+    // } else {
+    //     circle1.setRadius(diameter);
+    // }
     circle1.setRadius(diameter);
     circle1.setFillColor(color);
     circle1.setPosition(position.getX()-diameter/2,position.getY()-diameter/2);

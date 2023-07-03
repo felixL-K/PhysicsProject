@@ -73,3 +73,9 @@ bool operator==(const Vector2D& lhs, const Vector2D& rhs) {
     return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
 }
 
+Vector2D Vector2D::operator*(double d) {
+    return Vector2D{x*d,y*d};
+}
+Vector2D Vector2D::operator/(double d) {
+    return Vector2D{x/d,y/d};
+}

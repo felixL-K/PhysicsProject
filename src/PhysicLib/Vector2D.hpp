@@ -30,6 +30,8 @@ class Vector2D {
         void add(Vector2D v);
         static Vector2D multiply(Vector2D pos1, double multiplier);
         float getAngleDegrees(Vector2D target);
+        Vector2D operator*(double d);
+        Vector2D operator/(double d);
 
 };
 

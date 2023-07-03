@@ -13,7 +13,7 @@ using namespace std;
 
 class SolarSystem {
     private:
-        const unsigned int pathSize = 30;
+        const unsigned int pathSize = 300;
         map<Planet*,vector<Vector2D>> paths;
         std::vector<Planet*> celestialBodys;
         Star* star;
