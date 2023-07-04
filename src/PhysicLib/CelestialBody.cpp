@@ -3,6 +3,8 @@
 #include "SolarSystem.hpp"
 #include "../Main/MainClass.hpp"
 
+double DELTATIME1 = 0.0000000001;
+
 // Constructeur
 //solarSystem{new SolarSystem{}},
 CelestialBody::CelestialBody(SolarSystem* system) : diameter{10}, mass{10}, position{Vector2D{0,0}}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {
@@ -76,7 +78,7 @@ ostream & operator<<(ostream & out, CelestialBody c) {
 
 // real functions begin
 void CelestialBody::addVelocity(Vector2D forceIn){
-    velocity.add(forceIn*0.0000000001);
+    velocity.add(forceIn*DELTATIME1);
 }
 
 double CelestialBody::distance(CelestialBody p){

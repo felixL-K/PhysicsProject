@@ -3,6 +3,8 @@
 #include "SolarSystem.hpp"
 #include "../Main/MainClass.hpp"
 
+double DELTATIME2 = 0.0000000001;
+
 Planet::Planet(SolarSystem* system) : CelestialBody(system) {
     system->addBody(this);
 }
@@ -21,8 +23,8 @@ Planet::~Planet() {
 }
 
 void Planet::updatePosition(){
-    //position.add(Vector2D::multiply(velocity, MainClass::getDeltaTime()));
-    position.add(velocity*0.0000000001);
+    //position.add(Vector2D::multiply(velocity, MainClass::getDELTATIME2()));
+    position.add(velocity*DELTATIME2);
     solarSystem->addPath(this,position);
     //addPath(this.position);
 }

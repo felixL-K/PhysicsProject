@@ -16,27 +16,67 @@ guiMain::guiMain(SolarSystem* systemS) : system{systemS} {
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play() {
-    RenderWindow window(VideoMode(1000,1000),"Rendering the rectangle1.");
+
+    RenderWindow window(VideoMode(900,900),"Rendering the rectangle1.");
     window.setPosition(sf::Vector2i(10, 50));
     sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
-    sf::Vector2f HalfSize(5*ASTROUNIT2, 5*ASTROUNIT2);
+    double HalfSizeX = 5*ASTROUNIT2;
+    double HalfSizeY = 5*ASTROUNIT2;
+    sf::Vector2f HalfSize(HalfSizeX, HalfSizeY);
     sf::View View1(Center, HalfSize);
     window.setView(View1);
 
     while(window.isOpen()){
-        Event event;
-        while(window.pollEvent(event)){
-            if(event.type == Event::Closed){
-                // Close window button clicked.
-                window.close();
-            }
-        }
+
         window.clear(Color::Black);
         system->newtonGravAll();
         system->updateAllPositions();
         this->drawAllObjects(*system,&window);
         this->drawPaths(*system,&window);
         window.display();
+
+        window.setFramerateLimit(60);
+        const float zoomAmount{ 1.1f }; // zoom by 10%
+
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                // Close window button clicked.
+                window.close();
+            }
+            if (event.type == sf::Event::MouseWheelScrolled) {
+                // std::cout << "wheel movement: " << event.mouseWheel.delta << std::endl;
+                // std::cout << "mouse x: " << event.mouseWheel.x << std::endl;
+                // std::cout << "mouse y: " << event.mouseWheel.y << std::endl;
+                // sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
+                // if (event.mouseWheel.delta == -1) {
+                //     HalfSizeX = HalfSizeX * 0.9;
+                //     HalfSizeY = HalfSizeY * 0.9;
+                // } if (event.mouseWheel.delta == 1) {
+                //     HalfSizeX = HalfSizeX * 1.1;
+                //     HalfSizeY = HalfSizeY * 1.1;
+                // }
+                // sf::Vector2f HalfSize(HalfSizeX, HalfSizeY);
+                // sf::View View1(Center, HalfSize);
+                // window.setView(View1);
+                if (event.mouseWheelScroll.delta > 0)
+                    zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, (1.f / zoomAmount));
+                else if (event.mouseWheelScroll.delta < 0)
+                    zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, zoomAmount);
+            } else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Right) {
+                    std::cout << "the right button was pressed" << std::endl;
+                    std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+                    std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+                }
+            } else if (event.type == sf::Event::KeyPressed) {
+				if (event.key.code == sf::Keyboard::BackSpace)
+				{
+					window.setView(View1);
+				}
+			}
+        }
+        
     }
 }
 
@@ -65,6 +105,16 @@ guiMain::~guiMain() {
     // delete system;
 }
 
+void guiMain::zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom) {
+	const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };
+	sf::View view{ window.getView() };
+	view.zoom(zoom);
+	window.setView(view);
+	const sf::Vector2f afterCoord{ window.mapPixelToCoords(pixel) };
+	const sf::Vector2f offsetCoords{ beforeCoord - afterCoord };
+	view.move(offsetCoords);
+	window.setView(view);
+}
 
 // int main() {
 //     SolarSystem system{Vector2D{400,400}};

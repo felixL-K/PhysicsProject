@@ -17,6 +17,7 @@ class guiMain {
         void drawPaths(SolarSystem system, sf::RenderWindow *window);
         void play();
         virtual ~guiMain();
+        void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom);
 };
 
 
