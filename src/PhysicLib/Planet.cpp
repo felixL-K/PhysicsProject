@@ -19,7 +19,7 @@ Planet::Planet(double diameter, double massIn, Vector2D posIn, Vector2D velocity
 
 
 Planet::~Planet() {
-    // cout << "deleting Planet" << endl;
+    cout << "deleting Planet" << endl;
 }
 
 void Planet::updatePosition(){

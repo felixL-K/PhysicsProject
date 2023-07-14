@@ -21,5 +21,5 @@ Star::Star(double diameter, double massIn, Vector2D posIn, Vector2D velocity, So
 }
 
 Star::~Star() {
-    // cout << "deleting Star" << endl;
+    cout << "deleting Star" << endl;
 } 

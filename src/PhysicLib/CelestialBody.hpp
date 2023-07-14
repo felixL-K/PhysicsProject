@@ -49,9 +49,9 @@ class CelestialBody {
 
         // real functions begin
         void addVelocity(Vector2D forceIn);
-        double distance(CelestialBody p);
-        void newtonGrav(CelestialBody p);
-        void checkCollision(CelestialBody p);
+        double distance(CelestialBody* p);
+        void newtonGrav(CelestialBody* p);
+        void checkCollision(CelestialBody* p);
         
         void drawObject(sf::RenderWindow *window);
 

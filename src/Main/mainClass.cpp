@@ -31,9 +31,10 @@ int main() {
     mars.setDiameter(6800);
     mars.setVelocity(Vector2D{25000000000000000,0});
 
-    guiMain g{system};
-    g.play();
+    guiMain g{};
+    g.play(system);
 
+    delete system;
 	return 0;
 }
 

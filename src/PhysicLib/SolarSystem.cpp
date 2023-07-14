@@ -18,11 +18,26 @@ SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension
 }
 
 SolarSystem::~SolarSystem(){
-  // cout << "deleting SolarSystem" << endl;
+  cout << "deleting SolarSystem" << endl;
+  // for (int i =0; i< celestialBodys.size();i++)
+  //  {
+  //    delete (celestialBodys[i]);
+  //  } 
+
+  // std::vector< Planet* >::iterator it = celestialBodys.begin();
+  // for ( ; it != celestialBodys.end(); it++ ) {
+  //   std::cout << (*it) << endl;
+  //   //delete *it;
+  // }
+
+  // celestialBodys.clear();
+  
+  celestialBodys.erase(celestialBodys.begin(),celestialBodys.end());
+
   // for(unsigned int i = 0; i < celestialBodys.size(); i++) {
   //         delete celestialBodys[i];
   // }
-  // delete star;
+  delete star;
 }
 
 // SolarSystem::SolarSystem(const SolarSystem &) {
@@ -108,10 +123,10 @@ void SolarSystem::newtonGravAll() {
   for(unsigned int i = 0; i < getBodys().size(); i++) {
     for(unsigned int j = 0; j < getBodys().size(); j++) {
       if(i != j) {
-        getBodys()[i]->newtonGrav(*getBodys()[j]);
+        getBodys()[i]->newtonGrav(getBodys()[j]);
       }
     }
-    getBodys()[i]->newtonGrav(*star);
+    getBodys()[i]->newtonGrav(star);
   }
 }
 

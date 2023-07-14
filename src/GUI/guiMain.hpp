@@ -10,12 +10,12 @@
 
 class guiMain {
     private:
-        SolarSystem* system;
+        //SolarSystem* system;
     public:
-        guiMain(SolarSystem* system);
-        void drawAllObjects(SolarSystem system, sf::RenderWindow *window);
-        void drawPaths(SolarSystem system, sf::RenderWindow *window);
-        void play();
+        guiMain();
+        void drawAllObjects(SolarSystem* system, sf::RenderWindow *window);
+        void drawPaths(SolarSystem* system, sf::RenderWindow *window);
+        void play(SolarSystem* system);
         virtual ~guiMain();
         void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom);
 };
