@@ -1,4 +1,5 @@
 #include "guiMain.hpp"
+#include "../PhysicLib/GlobalValues.hpp"
 
 // #include <iostream>
 // #include <SFML/System.hpp> 
@@ -6,8 +7,6 @@
 // #include <SFML/Graphics.hpp> 
 // #include <vector>
 using namespace sf;
-
-double ASTROUNIT2 = 150000000; // in km
 
 
 guiMain::guiMain(){
@@ -20,17 +19,13 @@ void guiMain::play(SolarSystem* system) {
     RenderWindow window(VideoMode(900,900),"Rendering the rectangle1.");
     window.setPosition(sf::Vector2i(10, 50));
     sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
-    double HalfSizeX = 5*ASTROUNIT2;
-    double HalfSizeY = 5*ASTROUNIT2;
+    double HalfSizeX = 5*GlobalValues::ASTROUNIT;
+    double HalfSizeY = 5*GlobalValues::ASTROUNIT;
     sf::Vector2f HalfSize(HalfSizeX, HalfSizeY);
     sf::View View1(Center, HalfSize);
     window.setView(View1);
 
     while(window.isOpen()){
-    // int i = 0;
-    // while(i<3){
-    //     i++;
-
         window.clear(Color::Black);
         system->newtonGravAll();
         system->updateAllPositions();
@@ -105,14 +100,3 @@ void guiMain::zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoo
 	window.setView(view);
 }
 
-// int main() {
-//     SolarSystem system{Vector2D{400,400}};
-
-//     for(int i=0;i<200;i++)
-//         system.generateRandomPlanet();
-
-//     guiMain g{&system};
-//     g.play();
-
-//     return 0;
-// }
