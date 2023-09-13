@@ -1,0 +1,2 @@
+/usr/bin/ar qc libphysicProject.a  CMakeFiles/physicProject.dir/Vector2D.cpp.o CMakeFiles/physicProject.dir/CelestialBody.cpp.o CMakeFiles/physicProject.dir/SolarSystem.cpp.o CMakeFiles/physicProject.dir/Planet.cpp.o CMakeFiles/physicProject.dir/Star.cpp.o CMakeFiles/physicProject.dir/GlobalValues.cpp.o
+/usr/bin/ranlib libphysicProject.a

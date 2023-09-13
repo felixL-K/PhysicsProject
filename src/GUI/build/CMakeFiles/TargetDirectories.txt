@@ -1,0 +1,7 @@
+/home/fnifnou/Documents/PhysicsProject/src/GUI/build/CMakeFiles/install/strip.dir
+/home/fnifnou/Documents/PhysicsProject/src/GUI/build/CMakeFiles/install/local.dir
+/home/fnifnou/Documents/PhysicsProject/src/GUI/build/CMakeFiles/install.dir
+/home/fnifnou/Documents/PhysicsProject/src/GUI/build/CMakeFiles/list_install_components.dir
+/home/fnifnou/Documents/PhysicsProject/src/GUI/build/CMakeFiles/rebuild_cache.dir
+/home/fnifnou/Documents/PhysicsProject/src/GUI/build/CMakeFiles/edit_cache.dir
+/home/fnifnou/Documents/PhysicsProject/src/GUI/build/CMakeFiles/physicProjectGUI.dir

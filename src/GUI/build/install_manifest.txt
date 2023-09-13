@@ -1,0 +1,2 @@
+/usr/local/lib/libphysicProjectGUI.a
+/usr/local/include/guiMain.hpp

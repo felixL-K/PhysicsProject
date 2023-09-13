@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/physicMain.dir/mainClass.cpp.o  -o physicMain  -lphysicProject -lphysicProjectGUI -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio 
