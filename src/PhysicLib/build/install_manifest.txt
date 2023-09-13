@@ -1,2 +1,0 @@
-/usr/local/lib/libphysicProject.a
-/usr/local/include/Vector2D.hpp

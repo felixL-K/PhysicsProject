@@ -1,3 +1,0 @@
-/home/fnifnou/Documents/PhysicsProject/src/Main/build/CMakeFiles/rebuild_cache.dir
-/home/fnifnou/Documents/PhysicsProject/src/Main/build/CMakeFiles/edit_cache.dir
-/home/fnifnou/Documents/PhysicsProject/src/Main/build/CMakeFiles/physicMain.dir

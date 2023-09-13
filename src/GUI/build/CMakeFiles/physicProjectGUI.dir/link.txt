@@ -1,2 +1,0 @@
-/usr/bin/ar qc libphysicProjectGUI.a  CMakeFiles/physicProjectGUI.dir/guiMain.cpp.o
-/usr/bin/ranlib libphysicProjectGUI.a
