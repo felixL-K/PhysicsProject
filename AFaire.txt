@@ -1,0 +1,29 @@
+- masse volumique + mass = diametre
+- drawPhysicObject center (decallage avec le path)
+
+- masse etoile : 
+0.5-8 fois une masse solaire (One solar mass is 1.98892*10^30 kg.)
+dans programme :
+
+- masse planete : 
+.... fois une masse terre (... mass is ... kg.)
+dans programme :
+
+- proportion tellurique/gazeuse (proche/lointaine)
+- ajout attribut star dans SolarSystem
+- ajout sattelite à PhysicObject
+- ajout collision
+- QuadTree
+- passage à l'echelle (
+- 3D
+- class Galaxy
+
+
+- changer le calcul de distance (val absolu de dy + val absolu de dx)
+
+
+
+=================================================================================================
+- simulation liquide
+- simulation fractale
+- 
