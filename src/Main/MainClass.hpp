@@ -8,7 +8,7 @@ class MainClass {
     private:
 
     public:
-        static double getDeltaTime();
+        
 };
 
 

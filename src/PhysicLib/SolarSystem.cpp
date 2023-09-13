@@ -1,20 +1,15 @@
 #include "SolarSystem.hpp"
 #include <bits/stdc++.h>
 #include "../GUI/guiMain.hpp"
+#include "GlobalValues.hpp"
 
-// double SOLARMASS = 20000;
-
-double SOLARMASS = 1.989 * pow(10,30); // in kg
-double SOLARDIAMETER = 1400000; // in km
-double ASTROUNIT = 150000000; // in km
-double DELTATIME = 0.0000000001;
 
 // Constructeur
-SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{30*ASTROUNIT,30*ASTROUNIT}, center{center} {
+SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{30*GlobalValues::ASTROUNIT,30*GlobalValues::ASTROUNIT}, center{center} {
   double f = (double)rand() / RAND_MAX;
-  double m = (f*7.5 + 0.5) * SOLARMASS;
+  double m = (f*7.5 + 0.5) * GlobalValues::SOLARMASS;
   star = new Star{m,center,this};
-  star->setDiameter(SOLARDIAMETER);
+  star->setDiameter(GlobalValues::SOLARDIAMETER);
 }
 
 SolarSystem::~SolarSystem(){

@@ -2,8 +2,8 @@
 #include "CelestialBody.hpp"
 #include "SolarSystem.hpp"
 #include "../Main/MainClass.hpp"
+#include "GlobalValues.hpp"
 
-double DELTATIME1 = 0.0000000001;
 
 // Constructeur
 //solarSystem{new SolarSystem{}},
@@ -77,8 +77,12 @@ ostream & operator<<(ostream & out, CelestialBody c) {
 }
 
 // real functions begin
-void CelestialBody::addVelocity(Vector2D forceIn){
-    velocity.add(forceIn*DELTATIME1);
+void CelestialBody::addVelocity(Vector2D forceIn) {
+    velocity.add(forceIn.getX()*GlobalValues::timeScale, forceIn.getY()*GlobalValues::timeScale);
+}
+
+void CelestialBody::addVelocity(double dirx, double diry) {
+    velocity.add(dirx*GlobalValues::timeScale, diry*GlobalValues::timeScale);
 }
 
 double CelestialBody::distance(CelestialBody* p){
@@ -88,12 +92,12 @@ double CelestialBody::distance(CelestialBody* p){
 void CelestialBody::newtonGrav(CelestialBody* p) {
     double dist = this->distance(p);
     if (dist != 0) {
-        double force = this->mass * p->mass / pow(dist, 2);
-        double angle = position.getAngleDegrees(p->position);
+        double force = GlobalValues::GRAVITATIONALCONSTANT * this->mass * p->mass / pow(dist, 2);
         double acc = force / this->mass;
+        double angle = position.getAngleDegrees(p->position);
         double dirx = acc * cos(angle * (M_PI / 180));
         double diry = acc * sin(angle * (M_PI / 180));
-        this->velocity.add(dirx, diry);
+        this->addVelocity(dirx,diry);
         return;
     }
     return;

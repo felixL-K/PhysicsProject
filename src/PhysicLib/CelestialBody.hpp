@@ -49,6 +49,7 @@ class CelestialBody {
 
         // real functions begin
         void addVelocity(Vector2D forceIn);
+        void addVelocity(double dirx, double diry);
         double distance(CelestialBody* p);
         void newtonGrav(CelestialBody* p);
         void checkCollision(CelestialBody* p);

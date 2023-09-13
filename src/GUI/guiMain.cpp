@@ -33,8 +33,40 @@ void guiMain::play(SolarSystem* system) {
         this->drawPaths(system,&window);
         window.display();
 
-        window.setFramerateLimit(60);
         const float zoomAmount{ 1.1f }; // zoom by 10%
+
+
+        const sf::Time freezeLength{ sf::milliseconds(1000.0/GlobalValues::PHYSICS_TICK_SPEED) };
+        sf::Clock freezeClock;
+        while (freezeClock.getElapsedTime() < freezeLength)
+        {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == Event::Closed) {
+                    // Close window button clicked.
+                    window.close();
+                }
+                if (event.type == sf::Event::MouseWheelScrolled) {
+                    if (event.mouseWheelScroll.delta > 0)
+                        zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, (1.f / zoomAmount));
+                    else if (event.mouseWheelScroll.delta < 0)
+                        zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, zoomAmount);
+                } else if (event.type == sf::Event::MouseButtonPressed) {
+                    if (event.mouseButton.button == sf::Mouse::Right) {
+                        std::cout << "the right button was pressed" << std::endl;
+                        std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+                        std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+                    }
+                } else if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::BackSpace)
+                    {
+                        window.setView(View1);
+                    }
+                }
+            }
+        }
+
+        window.setFramerateLimit(60);
 
         Event event;
         while (window.pollEvent(event)) {

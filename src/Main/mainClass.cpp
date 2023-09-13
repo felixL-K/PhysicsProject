@@ -16,28 +16,24 @@ int main() {
     //     system->generateRandomPlanet();
 
     Planet mercure{3.3*pow(10,23),Vector2D{0,GlobalValues::ASTROUNIT*0.39},system};
-    mercure.setDiameter(4900);
-    mercure.setVelocity(Vector2D{30000000000000000,0});
+    mercure.setDiameter(4900000);
+    mercure.setVelocity(Vector2D{47900,0});
 
     Planet venus{4.9*pow(10,24),Vector2D{0,GlobalValues::ASTROUNIT*0.72},system};
-    venus.setDiameter(12100);
-    venus.setVelocity(Vector2D{30000000000000000,0});
+    venus.setDiameter(12100000);
+    venus.setVelocity(Vector2D{35000,0});
 
     Planet earth{6*pow(10,24),Vector2D{0,GlobalValues::ASTROUNIT},system};
-    earth.setDiameter(12700);
-    earth.setVelocity(Vector2D{30000000000000000,0});
+    earth.setDiameter(12700000);
+    earth.setVelocity(Vector2D{29800,0});
 
     Planet mars{6.4*pow(10,23),Vector2D{0,GlobalValues::ASTROUNIT*1.52},system};
-    mars.setDiameter(6800);
-    mars.setVelocity(Vector2D{25000000000000000,0});
+    mars.setDiameter(6800000);
+    mars.setVelocity(Vector2D{24100,0});
 
     guiMain g{};
     g.play(system);
 
     delete system;
 	return 0;
-}
-
-double MainClass::getDeltaTime(){
-	return 1;
 }

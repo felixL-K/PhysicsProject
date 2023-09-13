@@ -9,8 +9,9 @@ class GlobalValues {
         static double SOLARDIAMETER;
         static double ASTROUNIT;
         static double DELTATIME;
+        static double GRAVITATIONALCONSTANT;
 
-        static double getDeltaTime();
+        //static double getDeltaTime();
 
 
 
