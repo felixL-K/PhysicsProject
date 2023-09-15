@@ -14,34 +14,14 @@ SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension
 
 SolarSystem::~SolarSystem(){
   cout << "deleting SolarSystem" << endl;
-  // for (int i =0; i< celestialBodys.size();i++)
-  //  {
-  //    delete (celestialBodys[i]);
-  //  } 
 
-  // std::vector< Planet* >::iterator it = celestialBodys.begin();
-  // for ( ; it != celestialBodys.end(); it++ ) {
-  //   std::cout << (*it) << endl;
-  //   //delete *it;
-  // }
+  for (int i =0; i< celestialBodys.size();i++)
+   {
+     delete (celestialBodys[i]);
+   } 
 
-  // celestialBodys.clear();
-  
-  celestialBodys.erase(celestialBodys.begin(),celestialBodys.end());
-
-  // for(unsigned int i = 0; i < celestialBodys.size(); i++) {
-  //         delete celestialBodys[i];
-  // }
   delete star;
 }
-
-// SolarSystem::SolarSystem(const SolarSystem &) {
-
-// }
-
-// virtual SolarSystem::~SolarSystem() {
-
-// }
 
 vector<Planet*> SolarSystem::getBodys() {
   return celestialBodys;
@@ -77,22 +57,7 @@ void SolarSystem::addPath(Planet* body, Vector2D vect) {
     paths[body].erase(paths[body].begin());
   }
   paths[body].push_back(vect);
-    // if (paths[body].size() > pathSize) {
-    //   paths[body].erase(paths[body].begin());
-    //   paths[body].insert(paths[body].begin(),Vector2D(vect));
-    // } else {
-    //   paths[body].insert(paths[body].begin(),Vector2D(vect));
-    // }
-    // return;
 }
-
-// ostream & operator<<(ostream & out, SolarSystem & d) {
-
-// }
-
-// map<CelestialBody, vector<Vector2D>> SolarSystem::getPaths() {
-//   return paths;
-// }
 
 
 // maintenant des vector de pointeurs, il faut jouer avec vector dans le maine pour comprendre 
@@ -180,6 +145,7 @@ void SolarSystem::generateRandomPlanet() {
 Star* SolarSystem::getStar() {
   return star;
 }
+
 void SolarSystem::setStar(Star* s) {
   star = s;
 }

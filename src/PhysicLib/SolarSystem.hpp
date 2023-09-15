@@ -25,12 +25,6 @@ class SolarSystem {
         // Constructeur
         SolarSystem(Vector2D center);
         virtual ~SolarSystem();
-        // SolarSystem(const SolarSystem &); 
-        // virtual ~SolarSystem(); 
-        // Surcharge de l'initialisation
-        //SolarSystem &operator=(const SolarSystem &); 
-        //Surcharge du <<
-        //friend ostream & operator<<(ostream &,const SolarSystem &); 
 
         //static map<CelestialBody, vector<Vector2D>> getPaths();
         vector<Planet*> getBodys();
@@ -40,7 +34,6 @@ class SolarSystem {
         Star* getStar();
         void setStar(Star* s);
         void addBody(Planet* body);
-        // vector<Vector2D> getPathOfBody(CelestialBody* body);
         void addPath(Planet* body, Vector2D vect);
         void findIndexBody(CelestialBody* c);
         void updateAllPositions();
