@@ -22,7 +22,12 @@ project(physicProjectMain)
 
 add_executable(physicMain mainClass.cpp)
 
+add_executable(sliderMain mainSlider.cpp)
+
 # target_link_directories(physicTest PRIVATE ${CMAKE_SOURCE_DIR}/../PhysicLib/build)
 # because we did ligns 7-9 in ../PhysicLib/CMakeLists.txt
 # and make install in ../PhysicLib/build
 target_link_libraries(physicMain physicProject physicProjectGUI sfml-graphics sfml-window sfml-system sfml-audio)
+
+target_link_libraries(sliderMain physicProject physicProjectGUI sfml-graphics sfml-window sfml-system sfml-audio)
+
