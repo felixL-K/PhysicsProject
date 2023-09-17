@@ -2,8 +2,8 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(500, 500), "Slider!");
-	window.setFramerateLimit(60);
+	sf::RenderWindow sliderWindow(sf::VideoMode(500, 500), "Slider!");
+	sliderWindow.setFramerateLimit(60);
 
 	SliderSFML slider1(100, 100);
 	SliderSFML slider2(100, 200);
@@ -15,22 +15,22 @@ int main()
 
 	slider1.setSliderValue(235);
 
-	while (window.isOpen())
+	while (sliderWindow.isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (sliderWindow.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
+				sliderWindow.close();
 		}
 
-		window.clear(sf::Color(25,29,33));
+		sliderWindow.clear(sf::Color(25,29,33));
 
-		slider1.draw(window);
-		slider2.draw(window);
-		slider3.draw(window);
+		slider1.draw(sliderWindow);
+		slider2.draw(sliderWindow);
+		slider3.draw(sliderWindow);
 
-		window.display();
+		sliderWindow.display();
 	}
 
 	return 0;
