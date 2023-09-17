@@ -10,11 +10,11 @@ SliderSFML::SliderSFML(int x, int y)
 	sliderWidth = 20;
 	sliderHeight = 30;
 
-	if (!font.loadFromFile("Fonts\\Neon.ttf"))
+	if (!font.loadFromFile("./Neon.ttf"))
 		std::cout << "Error loading font\n";
 
 	text.setFont(font);
-	text.setFillColor(sf::Color::White);
+	text.setFillColor(sf::Color::Red);
 
 	axis.setPosition(x, y);
 	axis.setOrigin(0, axisHeight / 2);
