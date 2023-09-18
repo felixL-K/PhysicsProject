@@ -1,6 +1,5 @@
 
-
-
-*.bak
+./src/Main/build
 
 build/
+
