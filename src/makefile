@@ -15,9 +15,9 @@ cleanCmake:
 	sudo rm -rf ./GUI/build/*
 
 truc:
-	(cd ./PhysicLib/build; sudo make install; make)
-	(cd ./GUI/build; sudo make install; make)
-	(cd ./Main/build; make)
+	(cd ./PhysicLib/build; make clean; sudo make install; make)
+	(cd ./GUI/build; make clean; sudo make install; make)
+	(cd ./Main/build; make clean; make)
 
 clean:
 	(cd ./PhysicLib/build; make clean)

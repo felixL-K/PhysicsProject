@@ -119,8 +119,8 @@ void SolarSystem::generateRandomPlanet() {
   std::normal_distribution<double> distribution(0,0.05);
   double numberX = distribution(gen);
   double numberY = distribution(gen);
-  cout << "x : " << numberX << endl;
-  cout << "y : " << numberY << endl;
+  // cout << "x : " << numberX << endl;
+  // cout << "y : " << numberY << endl;
 
   double x = numberX * width;
   x += center.getX();
