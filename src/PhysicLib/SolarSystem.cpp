@@ -53,10 +53,24 @@ void SolarSystem::addPath(Planet* body, Vector2D vect) {
     vector<Vector2D> vectvect;
     paths[body] = vectvect;
   }
-  if (paths[body].size() >= pathSize) {
-    paths[body].erase(paths[body].begin());
+  if(GlobalValues::pathSize == 0) {
+
+  } else {
+    if (paths[body].size() < GlobalValues::pathSize) {
+      paths[body].push_back(vect);
+    }
+    if (paths[body].size() == GlobalValues::pathSize) {
+      paths[body].erase(paths[body].begin());
+      paths[body].push_back(vect);
+    }
+    if (paths[body].size() > GlobalValues::pathSize) {
+      paths[body].erase(paths[body].begin());
+      paths[body].erase(paths[body].begin());
+      paths[body].push_back(vect);
+    }
   }
-  paths[body].push_back(vect);
+  
+  
 }
 
 
@@ -154,6 +168,49 @@ void SolarSystem::generateRandomPlanet() {
   }
   // cout << "vy : " << vy << endl;
 
+  Planet *object = new Planet{m, Vector2D{x, y}, this};
+  object->addVelocity(Vector2D{vx, vy});
+  //object->diameter = findDiametre(m);
+
+  // cout << "===============" << endl;
+}
+
+void SolarSystem::generateLessRandomPlanet() {
+  double height = dimension.getX()/2;
+  double width = dimension.getY()/2;
+
+  std::random_device rd{};
+  std::mt19937 gen{rd()};
+  std::normal_distribution<double> distribution(0,0.05);
+  double numberX = distribution(gen);
+  double numberY = distribution(gen);
+  // cout << "x : " << numberX << endl;
+  // cout << "y : " << numberY << endl;
+
+  double x = numberX * width;
+  if (x<0) {
+    x = -x;
+  }
+  x += center.getX();
+
+  double y = numberY * height;
+  if (y<0) {
+    y = -y;
+  }
+  y += center.getY() ;
+  
+
+  double f = (double)rand() / RAND_MAX;
+  double m = f*pow(10,4)*pow(10,23);
+
+
+  // f = (double)rand() / RAND_MAX;
+  // double vx = f * 10;
+  double vx = 0;
+  
+  f = (double)rand() / RAND_MAX;
+  double vy = f * 10 *(-1);
+  
   Planet *object = new Planet{m, Vector2D{x, y}, this};
   object->addVelocity(Vector2D{vx, vy});
   //object->diameter = findDiametre(m);

@@ -14,6 +14,7 @@ class guiMain {
     private:
         //SolarSystem* system;
         static SliderSFML sliderTimeScale;
+        static SliderSFML sliderPathSize;
     public:
         guiMain();
         void drawAllObjects(SolarSystem* system, sf::RenderWindow *window);
@@ -23,6 +24,7 @@ class guiMain {
         void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom);
 
         static SliderSFML getSliderTimeScale();
+        static SliderSFML getSliderPathSize();
 };
 
 

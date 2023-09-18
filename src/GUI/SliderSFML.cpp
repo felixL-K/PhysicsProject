@@ -122,6 +122,6 @@ void SliderSFML::draw(sf::RenderWindow &window)
 	window.draw(slider);
 	window.draw(returnText(slider.getPosition().x - sliderWidth, slider.getPosition().y - sliderHeight,
 		std::to_string((int)sliderValue), 15));
-	window.draw(returnText(xCord, yCord-sliderHeight*2, title, 20));
+	window.draw(returnText(10, yCord-sliderHeight*1.75, title, 20));
 
 }

@@ -9,11 +9,11 @@
 using namespace sf;
 
 SliderSFML guiMain::sliderTimeScale{100, 100, 5000, 30000, "TimeScale"};
+SliderSFML guiMain::sliderPathSize{100, 200, 3, 300, "Path Size"};
 
 
 guiMain::guiMain() {
-    // sliderTimeScale.create(8640, 25640);
-    // sliderTimeScale.setSliderValue(16640);
+    
 }
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
@@ -48,6 +48,7 @@ void guiMain::play(SolarSystem* system) {
         // Updating slider window
         sliderWindow.clear(sf::Color(25,29,33));
 		sliderTimeScale.draw(sliderWindow);
+        sliderPathSize.draw(sliderWindow);
         sliderWindow.display();
 
         // defining zoom speed
@@ -129,4 +130,8 @@ void guiMain::zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoo
 
 SliderSFML guiMain::getSliderTimeScale() {
     return sliderTimeScale;
+}
+
+SliderSFML guiMain::getSliderPathSize() {
+    return sliderPathSize;
 }
