@@ -1,6 +1,5 @@
 #include "guiMain.hpp"
 #include "../PhysicLib/GlobalValues.hpp"
-#include "../GUI/SliderSFML.hpp"
 
 // #include <iostream>
 // #include <SFML/System.hpp> 
@@ -9,9 +8,12 @@
 // #include <vector>
 using namespace sf;
 
+SliderSFML guiMain::sliderTimeScale{100, 100, 8640, 25640};
 
-guiMain::guiMain(){
 
+guiMain::guiMain() {
+    // sliderTimeScale.create(8640, 25640);
+    // sliderTimeScale.setSliderValue(16640);
 }
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
@@ -31,12 +33,10 @@ void guiMain::play(SolarSystem* system) {
     sf::RenderWindow sliderWindow(sf::VideoMode(500, 500), "Slider!");
 	sliderWindow.setFramerateLimit(60);
     sliderWindow.setPosition(sf::Vector2i(50, 10));
-	SliderSFML slider1(100, 100);
-	slider1.create(20, 450);
-	slider1.setSliderValue(235);
-
+    
 
     while(window.isOpen() && sliderWindow.isOpen()){
+        GlobalValues::updateGlobalValues();
         // Updating principal window
         window.clear(Color::Black);
         system->newtonGravAll();
@@ -47,7 +47,7 @@ void guiMain::play(SolarSystem* system) {
 
         // Updating slider window
         sliderWindow.clear(sf::Color(25,29,33));
-		slider1.draw(sliderWindow);
+		sliderTimeScale.draw(sliderWindow);
         sliderWindow.display();
 
         // defining zoom speed
@@ -85,7 +85,7 @@ void guiMain::play(SolarSystem* system) {
             }
         }
 
-
+        
         
         
     }
@@ -127,3 +127,6 @@ void guiMain::zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoo
 	window.setView(view);
 }
 
+SliderSFML guiMain::getSliderTimeScale() {
+    return sliderTimeScale;
+}

@@ -12,7 +12,7 @@ class GlobalValues {
         static double GRAVITATIONALCONSTANT;
 
         //static double getDeltaTime();
-
+        static void updateGlobalValues();
 
 
 };
