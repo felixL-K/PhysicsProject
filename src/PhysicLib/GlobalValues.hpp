@@ -10,9 +10,10 @@ class GlobalValues {
         static double ASTROUNIT;
         static double DELTATIME;
         static double GRAVITATIONALCONSTANT;
+        static double pathSize;
 
         //static double getDeltaTime();
-
+        static void updateGlobalValues();
 
 
 };
