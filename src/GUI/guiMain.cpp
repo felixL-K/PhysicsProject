@@ -9,8 +9,7 @@
 using namespace sf;
 
 SliderSFML guiMain::sliderTimeScale{100, 100, 5000, 30000, "TimeScale"};
-SliderSFML guiMain::sliderPathSize{100, 200, 3, 300, "Path Size"};
-
+SliderSFML guiMain::sliderPathSize{100, 200, 3, 300, "Path Size",30};
 
 guiMain::guiMain() {
     

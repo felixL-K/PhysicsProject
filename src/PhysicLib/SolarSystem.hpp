@@ -40,6 +40,7 @@ class SolarSystem {
 
         void generateRandomPlanet();
         void generateLessRandomPlanet();
+        void generateXAxisPlanet();
 
 };
 

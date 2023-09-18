@@ -10,7 +10,7 @@ int main() {
 	SolarSystem* system = new SolarSystem{Vector2D{0,0}};
 
     for(int i=0;i<100;i++)
-        system->generateLessRandomPlanet();
+        system->generateXAxisPlanet();
 
     guiMain g{};
     g.play(system);

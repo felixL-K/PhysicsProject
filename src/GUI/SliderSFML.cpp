@@ -57,6 +57,37 @@ SliderSFML::SliderSFML(int x, int y, int min, int max, std::string title1)
 	setSliderValue((max-min)/2+min);
 }
 
+SliderSFML::SliderSFML(int x, int y, int min, int max, std::string title1, int value)
+{
+	title = title1;
+	xCord = x;
+	yCord = y;
+	axisHeight = 10;
+	axisWidth = 200;
+	sliderWidth = 20;
+	sliderHeight = 30;
+
+	if (!font.loadFromFile("./Neon.ttf"))
+		std::cout << "Error loading font\n";
+
+	text.setFont(font);
+	text.setFillColor(sf::Color::Red);
+
+	axis.setPosition(x, y);
+	axis.setOrigin(0, axisHeight / 2);
+	axis.setSize(sf::Vector2f(axisWidth, axisHeight));
+	axis.setFillColor(sf::Color(63,63,63));
+	slider.setPosition(x, y);
+	slider.setOrigin(sliderWidth / 2, sliderHeight / 2);
+	slider.setSize(sf::Vector2f(sliderWidth, sliderHeight));
+	slider.setFillColor(sf::Color(192,192,192));
+
+	// =========== CREATE ====================
+	minValue = min;
+	maxValue = max;
+	setSliderValue(value);
+}
+
 sf::Text SliderSFML::returnText(int x, int y, std::string z, int fontSize)
 {
 	text.setCharacterSize(fontSize);
