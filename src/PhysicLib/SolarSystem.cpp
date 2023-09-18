@@ -6,9 +6,9 @@
 
 // Constructeur
 SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{30*GlobalValues::ASTROUNIT,30*GlobalValues::ASTROUNIT}, center{center} {
-  double f = (double)rand() / RAND_MAX;
-  double m = (f*7.5 + 0.5) * GlobalValues::SOLARMASS;
-  star = new Star{m,center,this};
+  double rand1 = (double)rand() / RAND_MAX;
+  double massSun = (rand1*7.5 + 0.5) * GlobalValues::SOLARMASS;
+  star = new Star{massSun,center,this};
   star->setDiameter(GlobalValues::SOLARDIAMETER);
 }
 
@@ -94,34 +94,54 @@ void SolarSystem::generateRandomPlanet() {
   double height = dimension.getX()/2;
   double width = dimension.getY()/2;
 
-  double f = (double)rand() / RAND_MAX;
-  double x = f * width;
-  double neg = (double)rand() / RAND_MAX;
-  if (neg<0.5) {
-    x = -x;
-  }
+  // double f = (double)rand() / RAND_MAX;
+  // double x = f * width;
+  // double neg = (double)rand() / RAND_MAX;
+  // if (neg<0.5) {
+  //   x = -x;
+  // }
+  // x += center.getX();
+  // // if (x<0) { x = -x; }
+  // // cout << "x : " << x << endl;
+
+  // f = (double)rand() / RAND_MAX;
+  // double y = f * height;
+  // neg = (double)rand() / RAND_MAX;
+  // if (neg<0.5) {
+  //   y = -y;
+  // }
+  // y += center.getY();
+  // // if (y<0) { y = -y; }
+  // // cout << "y : " << y << endl;
+
+  std::random_device rd{};
+  std::mt19937 gen{rd()};
+  std::normal_distribution<double> distribution(0,0.05);
+  double numberX = distribution(gen);
+  double numberY = distribution(gen);
+  cout << "x : " << numberX << endl;
+  cout << "y : " << numberY << endl;
+
+  double x = numberX * width;
   x += center.getX();
   // if (x<0) { x = -x; }
   // cout << "x : " << x << endl;
 
-  f = (double)rand() / RAND_MAX;
-  double y = f * height;
-  neg = (double)rand() / RAND_MAX;
-  if (neg<0.5) {
-    y = -y;
-  }
+  double y = numberY * height;
   y += center.getY();
   // if (y<0) { y = -y; }
   // cout << "y : " << y << endl;
+  
 
-  f = (double)rand() / RAND_MAX;
-  double m = f * 50;
+  double f = (double)rand() / RAND_MAX;
+  //double m = f * 50;
+  double m = f*pow(10,4)*pow(10,23);
   // if (m<0) { m = -m; }
-  // cout << "m : " << m << endl;
+  //cout << "m : " << m << endl;
 
   f = (double)rand() / RAND_MAX;
   double vx = f * 10;
-  neg = (double)rand() / RAND_MAX;
+  double neg = (double)rand() / RAND_MAX;
   if (neg<0.5) {
     vx = -vx;
   }

@@ -23,10 +23,8 @@ CelestialBody::CelestialBody(const CelestialBody & vect)
 
 
 CelestialBody::~CelestialBody() {
-    cout << "deleting CelestialBody" << endl;
-    // cout << "= Destruction d'un CelestialBody =" << endl;
-    //delete SolarSystem;
-    //delete solarSystem;
+    //cout << "deleting CelestialBody" << endl;
+    
 }
 
 /*

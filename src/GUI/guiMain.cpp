@@ -8,7 +8,7 @@
 // #include <vector>
 using namespace sf;
 
-SliderSFML guiMain::sliderTimeScale{100, 100, 8640, 25640};
+SliderSFML guiMain::sliderTimeScale{100, 100, 5000, 30000};
 
 
 guiMain::guiMain() {
