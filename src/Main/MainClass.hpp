@@ -1,6 +1,5 @@
 
 
-
 #ifndef _MAINCLASS
 #define _MAINCLASS
 

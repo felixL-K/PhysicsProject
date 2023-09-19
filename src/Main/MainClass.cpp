@@ -2,7 +2,6 @@
 #include "Vector2D.hpp"
 #include "../PhysicLib/SolarSystem.hpp"
 #include "../PhysicLib/GlobalValues.hpp"
-#include "../GUI/guiMain.hpp"
 #include "../GUI/View.hpp"
 #include "Controller.hpp"
 
@@ -13,7 +12,7 @@ int main() {
     SolarSystem* system = new SolarSystem{Vector2D{0,0}};
 
     for(int i=0;i<100;i++)
-        system->generateXAxisPlanet();
+        system->generateRandomPlanet();
     
 
 

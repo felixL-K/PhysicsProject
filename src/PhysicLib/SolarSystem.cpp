@@ -1,6 +1,5 @@
 #include "SolarSystem.hpp"
 #include <bits/stdc++.h>
-#include "../GUI/guiMain.hpp"
 #include "GlobalValues.hpp"
 
 
