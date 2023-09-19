@@ -1,6 +1,6 @@
 #include "GlobalValues.hpp"
 #include <bits/stdc++.h>
-#include "../GUI/guiMain.hpp"
+#include "../GUI/View.hpp"
 
 int GlobalValues::PHYSICS_TICK_SPEED = 200;
 double GlobalValues::timeScale = 17140;
@@ -19,7 +19,7 @@ double GlobalValues::pathSize = 30;
 // }
 
 void GlobalValues::updateGlobalValues() {
-    GlobalValues::timeScale = guiMain::getSliderTimeScale().getSliderValue();
-    GlobalValues::pathSize = guiMain::getSliderPathSize().getSliderValue();
+    GlobalValues::timeScale = View::getSliderTimeScale().getSliderValue();
+    GlobalValues::pathSize = View::getSliderPathSize().getSliderValue();
 
 }

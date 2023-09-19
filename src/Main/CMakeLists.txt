@@ -20,11 +20,11 @@ cmake_minimum_required(VERSION 3.16.3)
 
 project(physicProjectMain)
 
-add_executable(physicMain mainClass.cpp)
+add_executable(physicMain MainClass.cpp Controller.cpp)
 
-add_executable(sliderMain mainSlider.cpp)
+add_executable(sliderMain MainSlider.cpp Controller.cpp)
 
-add_executable(lessRandMain MainClassLessRand.cpp)
+add_executable(lessRandMain MainClassLessRand.cpp Controller.cpp)
 
 
 # target_link_directories(physicTest PRIVATE ${CMAKE_SOURCE_DIR}/../PhysicLib/build)

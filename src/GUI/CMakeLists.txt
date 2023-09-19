@@ -13,12 +13,12 @@
 
 cmake_minimum_required(VERSION 3.16.3)
 project(physicProjectGUI)
-add_library(physicProjectGUI guiMain.cpp SliderSFML.cpp)
+add_library(physicProjectGUI guiMain.cpp SliderSFML.cpp View.cpp)
 
 
 # install(TARGETS physicProjectGUI DESTINATION lib)
 # with set_target_properties(...) it becoms :
-set_target_properties(physicProjectGUI PROPERTIES PUBLIC_HEADER guiMain.hpp SliderSFML.hpp ddd)
+set_target_properties(physicProjectGUI PROPERTIES PUBLIC_HEADER guiMain.hpp SliderSFML.hpp View.hpp)
 install(TARGETS physicProjectGUI LIBRARY DESTINATION lib
         PUBLIC_HEADER DESTINATION include)
         
