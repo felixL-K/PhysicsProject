@@ -1,10 +1,9 @@
 #include <iostream>
 #include "Planet.hpp"
 #include "SolarSystem.hpp"
-#include "../Main/MainClass.hpp"
 #include "GlobalValues.hpp"
 
-Planet::Planet(SolarSystem* system) : CelestialBody(system) {
+Planet::Planet(SolarSystem* system) : CelestialBody(10, 10, Vector2D{0,0}, Vector2D{0,0}, system) {
     system->addBody(this);
 }
 
@@ -22,8 +21,6 @@ Planet::~Planet() {
 }
 
 void Planet::updatePosition(){
-    //position.add(Vector2D::multiply(velocity, MainClass::getDELTATIME2()));
     position.add(velocity*GlobalValues::timeScale);
     solarSystem->addPath(this,position);
-    //addPath(this.position);
 }

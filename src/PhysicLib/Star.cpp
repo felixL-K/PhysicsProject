@@ -4,7 +4,7 @@
 #include "../Main/MainClass.hpp"
 
 
-Star::Star(SolarSystem* system) : CelestialBody(system) {
+Star::Star(SolarSystem* system) : CelestialBody(10, 10, Vector2D{0,0}, Vector2D{0,0}, system) {
     system->setStar(this);
     setDiameter(50);
     setColor(255,255,51);
