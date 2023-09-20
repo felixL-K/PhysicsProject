@@ -253,7 +253,22 @@ void SolarSystem::generateXAxisPlanet() {
   
   Planet *object = new Planet{m, Vector2D{x, y}, this};
   object->addVelocity(Vector2D{vx, vy});
-  //object->diameter = findDiametre(m);
+
+  double d = (double)rand() / RAND_MAX;
+  double diam = d*3.5+0.5;
+  double cat = std::fmod((double)rand(),RAND_MAX);
+  if(cat>0.75) {
+    if(cat>0.9) {
+      if(cat>0.95) {
+        diam += 16;
+      } else {
+        diam += 8;
+      }
+    } else {
+      diam += 4;
+    }
+  }
+  object->setDiameter(diam*GlobalValues::EARTHDIAMETER);
 
   // cout << "===============" << endl;
 }

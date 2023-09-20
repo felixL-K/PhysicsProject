@@ -21,6 +21,7 @@ class View {
         View(int const width, int const height, sf::RenderWindow& mainWin_, sf::RenderWindow& sliderWin_);
         void drawSolarSystem(SolarSystem* system, sf::RenderWindow *window);
         void drawPaths(SolarSystem* system, sf::RenderWindow *window);
+        void drawPathsArt(SolarSystem* system, sf::RenderWindow *window);
         static void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom);
         static SliderSFML getSliderTimeScale();
         static SliderSFML getSliderPathSize();

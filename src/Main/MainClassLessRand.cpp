@@ -89,7 +89,12 @@ int main() {
 
                 }
             } else if (event.type == sf::Event::KeyPressed) {
+                controller.on_keypress(event);
                 if (event.key.code == sf::Keyboard::BackSpace)
+                {
+                    window.setView(View1);
+                }
+                if (event.key.code == sf::Keyboard::Space)
                 {
                     window.setView(View1);
                 }
@@ -100,7 +105,7 @@ int main() {
         window.clear(sf::Color::Black);
         sliderWindow.clear(sf::Color(25,29,33));
 
-
+    
         if (clock.getElapsedTime().asSeconds() >= update_delay) {
             controller.update_model();
             clock.restart();

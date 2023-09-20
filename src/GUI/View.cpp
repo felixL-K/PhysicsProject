@@ -36,6 +36,23 @@ void View::drawPaths(SolarSystem* system, sf::RenderWindow *window) {
     }
 }
 
+void View::drawPathsArt(SolarSystem* system, sf::RenderWindow *window) {
+    for (const auto& path : system->getPaths()) {
+        int pathSise = path.second.size();
+        int n = pathSise;
+        int i = 0;
+        while(i<pathSise) {
+            sf::Vertex line[2];
+            line[0].position = sf::Vector2f(path.second[i].getX(), path.second[i].getY());
+            line[0].color  = path.first->getColor();
+            line[1].position = sf::Vector2f(path.second[i-n].getX(), path.second[i-n].getY());
+            line[1].color = path.first->getColor();
+            window->draw(line, 2, sf::Lines);
+            i += 1;
+        }
+    }
+}
+
 void View::zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom) {
 	const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };
 	sf::View view{ window.getView() };

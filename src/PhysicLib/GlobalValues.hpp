@@ -7,6 +7,7 @@ class GlobalValues {
         static double timeScale;
         static double SOLARMASS;
         static double SOLARDIAMETER;
+        static double EARTHDIAMETER;
         static double ASTROUNIT;
         static double DELTATIME;
         static double GRAVITATIONALCONSTANT;
