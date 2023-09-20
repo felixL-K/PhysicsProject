@@ -12,11 +12,19 @@
 int main() {
 
     SolarSystem* system = new SolarSystem{Vector2D{0,0}};
-
-    for(int i=0;i<100;i++)
+    for(int i=0;i<100;i++) {
         system->generateXAxisPlanet();
-    
+    }
 
+    SolarSystem* system1 = new SolarSystem{Vector2D{3*GlobalValues::ASTROUNIT,3*GlobalValues::ASTROUNIT}};
+    for(int i=0;i<100;i++) {
+        system1->generateXAxisPlanet();
+    }
+
+    SolarSystem* system2 = new SolarSystem{Vector2D{4*GlobalValues::ASTROUNIT,(-1)*GlobalValues::ASTROUNIT}};
+    for(int i=0;i<100;i++) {
+        system2->generateXAxisPlanet();
+    }
 
 
 
@@ -29,7 +37,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(width, height), "0");
     window.setFramerateLimit(60);
     window.setPosition(sf::Vector2i(0, 50));
-    sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
+    sf::Vector2f Center((system->getCenter().getX()+system1->getCenter().getX()+system2->getCenter().getX())/3,(system->getCenter().getY()+system1->getCenter().getY()+system2->getCenter().getY())/3);
     double HalfSizeX = 5*GlobalValues::ASTROUNIT;
     double HalfSizeY = 5*GlobalValues::ASTROUNIT;
     sf::Vector2f HalfSize(HalfSizeX, HalfSizeY);
@@ -41,8 +49,16 @@ int main() {
 	sliderWindow.setFramerateLimit(60);
     sliderWindow.setPosition(sf::Vector2i(50, 10));
 
+
+
+
+
+
     Controller controller{width, height, window, sliderWindow};
     controller.addSolarSytem(system);
+    controller.addSolarSytem(system1);
+    controller.addSolarSytem(system2);
+
     
     constexpr float update_delay = 0; //.5;
     sf::Clock clock;
@@ -66,6 +82,19 @@ int main() {
                     std::cout << "the right button was pressed" << std::endl;
                     std::cout << "mouse x: " << event.mouseButton.x << std::endl;
                     std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+
+                    // get the current mouse position in the window
+                    sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+                    // convert it to world coordinates
+                    sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
+                    std::cout << "world x: " << worldPos.x << std::endl;
+                    std::cout << "world y: " << worldPos.y << std::endl;
+                    SolarSystem* systemN = new SolarSystem{Vector2D{worldPos.x,worldPos.y}};
+                    for(int i=0;i<100;i++) {
+                        systemN->generateXAxisPlanet();
+                    }
+                    controller.addSolarSytem(systemN);
+
                 }
             } else if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::BackSpace)

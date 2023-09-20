@@ -10,8 +10,8 @@ class View;
 
 class Model {
     private:
-        int width;
-        int height;
+        Vector2D center;
+        Vector2D dimension;
         std::uint64_t iterations = 0;
 
         View& view;

@@ -31,6 +31,13 @@ double Vector2D::getY() const {
     return y;
 }
 
+void Vector2D::setX(double vx) {
+    x = vx;
+}
+void Vector2D::setY(double vy) {
+    y = vy;
+}
+
 ostream & operator<<(ostream & out, Vector2D v) {
     double vx = v.getX();
     double vy = v.getY();

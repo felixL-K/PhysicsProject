@@ -24,6 +24,8 @@ class Vector2D {
 
         double getX() const;
         double getY() const;
+        void setX(double vx);
+        void setY(double vy);
 
         double distance(Vector2D v);
         void add(double vx, double vy);
