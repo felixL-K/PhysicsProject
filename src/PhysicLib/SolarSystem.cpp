@@ -4,7 +4,7 @@
 
 
 // Constructeur
-SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{30*GlobalValues::ASTROUNIT,30*GlobalValues::ASTROUNIT}, center{center} {
+SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{5*GlobalValues::ASTROUNIT,5*GlobalValues::ASTROUNIT}, center{center} {
   double rand1 = (double)rand() / RAND_MAX;
   double massSun = (rand1*7.5 + 0.5) * GlobalValues::SOLARMASS;
   star = new Star{massSun,center,this};
@@ -129,7 +129,7 @@ void SolarSystem::generateRandomPlanet() {
 
   std::random_device rd{};
   std::mt19937 gen{rd()};
-  std::normal_distribution<double> distribution(0,0.05);
+  std::normal_distribution<double> distribution(0,0.2);
   double numberX = distribution(gen);
   double numberY = distribution(gen);
   // cout << "x : " << numberX << endl;
@@ -180,7 +180,7 @@ void SolarSystem::generateLessRandomPlanet() {
 
   std::random_device rd{};
   std::mt19937 gen{rd()};
-  std::normal_distribution<double> distribution(0,0.05);
+  std::normal_distribution<double> distribution(0,0.2);
   double numberX = distribution(gen);
   double numberY = distribution(gen);
   // cout << "x : " << numberX << endl;
@@ -223,7 +223,7 @@ void SolarSystem::generateXAxisPlanet() {
 
   std::random_device rd{};
   std::mt19937 gen{rd()};
-  std::normal_distribution<double> distribution(0,0.05);
+  std::normal_distribution<double> distribution(0,0.2);
   double numberX = distribution(gen);
   double numberY = distribution(gen);
   // cout << "x : " << numberX << endl;
@@ -233,7 +233,9 @@ void SolarSystem::generateXAxisPlanet() {
   if (x<0) {
     x = -x;
   }
+  x = std::fmod(x,pow(10,14));
   x += center.getX();
+  x += GlobalValues::ASTROUNIT/10;
 
   double y = center.getY();
   
