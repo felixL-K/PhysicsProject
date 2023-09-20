@@ -82,7 +82,11 @@ int main() {
                     for(int i=0;i<50;i++) {
                         systemN->generateXAxisPlanet();
                     }
+                    
+                    std::cout << "New star x: " << systemN->getStar()->getPosition().getX() << std::endl;
+                    std::cout << "New star y: " << systemN->getStar()->getPosition().getY() << std::endl;
                     controller.addSolarSytem(systemN);
+
                 }
             } else if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::BackSpace)

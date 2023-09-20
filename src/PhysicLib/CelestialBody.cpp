@@ -3,7 +3,7 @@
 #include "SolarSystem.hpp"
 #include "../Main/MainClass.hpp"
 #include "GlobalValues.hpp"
-
+#include "Model.hpp"
 
 // Constructeur
 CelestialBody::CelestialBody(double massIn, Vector2D posIn, SolarSystem* system) : diameter{10}, mass{massIn}, position{posIn}, velocity{Vector2D{0,0}}, color{(sf::Uint8)(rand() % 255), (sf::Uint8)(rand() % 255), (sf::Uint8)(rand() % 255)}, solarSystem{system} {
@@ -91,7 +91,22 @@ void CelestialBody::newtonGrav(CelestialBody* p) {
         double dirx = acc * cos(angle * (M_PI / 180));
         double diry = acc * sin(angle * (M_PI / 180));
         this->addVelocity(dirx,diry);
-        return;
+    }
+    return;
+}
+
+void CelestialBody::newtonGravAllStars() {
+    for (int i =0; i< Model::getSolarSystems().size();i++) {
+        CelestialBody *p = Model::getSolarSystems()[i]->getStar();
+        double dist = this->distance(p);
+        if (dist != 0) {
+            double force = GlobalValues::GRAVITATIONALCONSTANT * this->mass * p->mass / pow(dist, 2);
+            double acc = force / this->mass;
+            double angle = position.getAngleDegrees(p->position);
+            double dirx = acc * cos(angle * (M_PI / 180));
+            double diry = acc * sin(angle * (M_PI / 180));
+            this->addVelocity(dirx,diry);
+        }
     }
     return;
 }

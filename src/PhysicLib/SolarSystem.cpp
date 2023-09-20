@@ -99,7 +99,7 @@ void SolarSystem::newtonGravAll() {
         getBodys()[i]->newtonGrav(getBodys()[j]);
       }
     }
-    getBodys()[i]->newtonGrav(star);
+    getBodys()[i]->newtonGravAllStars();
   }
 }
 

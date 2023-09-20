@@ -51,6 +51,7 @@ class CelestialBody {
         void addVelocity(double dirx, double diry);
         double distance(CelestialBody* p);
         void newtonGrav(CelestialBody* p);
+        void newtonGravAllStars();
         void checkCollision(CelestialBody* p);
         
         void drawObject(sf::RenderWindow *window);
