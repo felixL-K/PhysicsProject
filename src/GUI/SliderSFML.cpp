@@ -1,6 +1,5 @@
 #include "SliderSFML.hpp"
 
-
 SliderSFML::SliderSFML(int x, int y)
 {
 	xCord = x;
@@ -19,11 +18,11 @@ SliderSFML::SliderSFML(int x, int y)
 	axis.setPosition(x, y);
 	axis.setOrigin(0, axisHeight / 2);
 	axis.setSize(sf::Vector2f(axisWidth, axisHeight));
-	axis.setFillColor(sf::Color(63,63,63));
+	axis.setFillColor(sf::Color(63, 63, 63));
 	slider.setPosition(x, y);
 	slider.setOrigin(sliderWidth / 2, sliderHeight / 2);
 	slider.setSize(sf::Vector2f(sliderWidth, sliderHeight));
-	slider.setFillColor(sf::Color(192,192,192));
+	slider.setFillColor(sf::Color(192, 192, 192));
 }
 
 SliderSFML::SliderSFML(int x, int y, int min, int max, std::string title1)
@@ -45,16 +44,16 @@ SliderSFML::SliderSFML(int x, int y, int min, int max, std::string title1)
 	axis.setPosition(x, y);
 	axis.setOrigin(0, axisHeight / 2);
 	axis.setSize(sf::Vector2f(axisWidth, axisHeight));
-	axis.setFillColor(sf::Color(63,63,63));
+	axis.setFillColor(sf::Color(63, 63, 63));
 	slider.setPosition(x, y);
 	slider.setOrigin(sliderWidth / 2, sliderHeight / 2);
 	slider.setSize(sf::Vector2f(sliderWidth, sliderHeight));
-	slider.setFillColor(sf::Color(192,192,192));
+	slider.setFillColor(sf::Color(192, 192, 192));
 
 	// =========== CREATE ====================
 	minValue = min;
 	maxValue = max;
-	setSliderValue((max-min)/2+min);
+	setSliderValue((max - min) / 2 + min);
 }
 
 SliderSFML::SliderSFML(int x, int y, int min, int max, std::string title1, int value)
@@ -76,11 +75,11 @@ SliderSFML::SliderSFML(int x, int y, int min, int max, std::string title1, int v
 	axis.setPosition(x, y);
 	axis.setOrigin(0, axisHeight / 2);
 	axis.setSize(sf::Vector2f(axisWidth, axisHeight));
-	axis.setFillColor(sf::Color(63,63,63));
+	axis.setFillColor(sf::Color(63, 63, 63));
 	slider.setPosition(x, y);
 	slider.setOrigin(sliderWidth / 2, sliderHeight / 2);
 	slider.setSize(sf::Vector2f(sliderWidth, sliderHeight));
-	slider.setFillColor(sf::Color(192,192,192));
+	slider.setFillColor(sf::Color(192, 192, 192));
 
 	// =========== CREATE ====================
 	minValue = min;
@@ -105,8 +104,7 @@ void SliderSFML::create(int min, int max)
 
 void SliderSFML::logic(sf::RenderWindow &window)
 {
-	if (slider.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)
-		&& sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	if (slider.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
 		if (sf::Mouse::getPosition(window).x >= xCord && sf::Mouse::getPosition(window).x <= xCord + axisWidth)
 		{
@@ -129,7 +127,7 @@ void SliderSFML::setSliderValue(float newValue)
 		float diff = maxValue - minValue;
 		float diff2 = newValue - minValue;
 		float zzz = axisWidth / diff;
-		float posX = zzz*diff2;
+		float posX = zzz * diff2;
 		posX += xCord;
 		slider.setPosition(posX, yCord);
 	}
@@ -140,7 +138,7 @@ void SliderSFML::setSliderPercentValue(float newPercentValue)
 	if (newPercentValue >= 0 && newPercentValue <= 100)
 	{
 		sliderValue = newPercentValue / 100 * maxValue;
-		slider.setPosition(xCord + (axisWidth*newPercentValue / 100), yCord);
+		slider.setPosition(xCord + (axisWidth * newPercentValue / 100), yCord);
 	}
 }
 
@@ -152,7 +150,6 @@ void SliderSFML::draw(sf::RenderWindow &window)
 	window.draw(returnText(xCord + axisWidth - 10, yCord + 5, std::to_string(maxValue), 20));
 	window.draw(slider);
 	window.draw(returnText(slider.getPosition().x - sliderWidth, slider.getPosition().y - sliderHeight,
-		std::to_string((int)sliderValue), 15));
-	window.draw(returnText(10, yCord-sliderHeight*1.75, title, 20));
-
+						   std::to_string((int)sliderValue), 15));
+	window.draw(returnText(10, yCord - sliderHeight * 1.75, title, 20));
 }

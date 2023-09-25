@@ -2,38 +2,37 @@
 // #include "../GUI/View.hpp"
 #include "Planet.hpp"
 #include "SolarSystem.hpp"
-//#include "Satellite.hpp"
+// #include "Satellite.hpp"
 
 #include <vector>
 
 class View;
 
-class Model {
-    private:
-        Vector2D center;
-        Vector2D dimension;
-        std::uint64_t iterations = 0;
+class Model
+{
+private:
+    Vector2D center;
+    Vector2D dimension;
+    std::uint64_t iterations = 0;
 
-        View& view;
+    View &view;
 
-        static std::vector<Planet*> planets;
-        static std::vector<SolarSystem*> stars;
+    static std::vector<Planet *> planets;
+    static std::vector<SolarSystem *> stars;
 
-        // void seed_grid();
-        // int count_neighbors(int const m_origin, int const n_origin) const;
-        // void check_rules(int const pos, int const neighbors);
-        // void apply_rules(int pos, bool const state);
-        
-    public:
-        Model(int const width_, int const height_, View& view_);
+    // void seed_grid();
+    // int count_neighbors(int const m_origin, int const n_origin) const;
+    // void check_rules(int const pos, int const neighbors);
+    // void apply_rules(int pos, bool const state);
 
-        void update();
-        void reset();
+public:
+    Model(int const width_, int const height_, View &view_);
 
-        static std::vector<Planet*> getPlanets();
-        static std::vector<SolarSystem*> getSolarSystems();
+    void update();
+    void reset();
 
-        void addSolarSytemModel(SolarSystem* sys);
+    static std::vector<Planet *> getPlanets();
+    static std::vector<SolarSystem *> getSolarSystems();
 
-
+    void addSolarSytemModel(SolarSystem *sys);
 };

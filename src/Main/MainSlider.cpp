@@ -24,7 +24,7 @@ int main()
 				sliderWindow.close();
 		}
 
-		sliderWindow.clear(sf::Color(25,29,33));
+		sliderWindow.clear(sf::Color(25, 29, 33));
 
 		slider1.draw(sliderWindow);
 		slider2.draw(sliderWindow);
