@@ -9,11 +9,10 @@
 
 int main()
 {
-
     SolarSystem *system = new SolarSystem{Vector2D{0, 0}};
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 1; i++)
     {
-        system->generateXAxisPlanet();
+        system->generateXAxisPlanetSystem();
     }
 
     constexpr int width = 900;
@@ -78,7 +77,7 @@ int main()
                     SolarSystem *systemN = new SolarSystem{Vector2D{worldPos.x, worldPos.y}};
                     for (int i = 0; i < 50; i++)
                     {
-                        systemN->generateXAxisPlanet();
+                        systemN->generateXAxisPlanetSystem();
                     }
 
                     std::cout << "New star x: " << systemN->getStar()->getPosition().getX() << std::endl;

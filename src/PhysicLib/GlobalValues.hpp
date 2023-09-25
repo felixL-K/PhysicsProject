@@ -10,6 +10,8 @@ public:
     static double SOLARDIAMETER;
     static double EARTHDIAMETER;
     static double ASTROUNIT;
+    static double MOONDISTANCE;
+
     static double DELTATIME;
     static double GRAVITATIONALCONSTANT;
     static double pathSize;

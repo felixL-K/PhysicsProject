@@ -6,7 +6,7 @@
 
 #include <string>
 
-SliderSFML View::sliderTimeScale{100, 100, 5000, 30000, "TimeScale"};
+SliderSFML View::sliderTimeScale{100, 100, 1, 30000, "TimeScale"};
 SliderSFML View::sliderPathSize{100, 200, 3, 300, "Path Size", 30};
 
 View::View(int const width_, int const height_, sf::RenderWindow &mainWin_, sf::RenderWindow &sliderWin_)
@@ -16,9 +16,12 @@ View::View(int const width_, int const height_, sf::RenderWindow &mainWin_, sf::
 
 void View::drawSolarSystem(SolarSystem *system, sf::RenderWindow *window)
 {
-    for (unsigned int i = 0; i < system->getBodys().size(); i++)
+    for (unsigned int i = 0; i < system->getPlanetSystems().size(); i++)
     {
-        system->getBodys()[i]->drawObject(window);
+        system->getPlanetSystems()[i]->getPlanet()->drawObject(window);
+        for(unsigned int j = 0; j < system->getPlanetSystems()[i]->getSatellites().size(); j++) {
+            system->getPlanetSystems()[i]->getSatellites()[j]->drawObject(window);
+        }
     }
     system->getStar()->drawObject(window);
 }
@@ -31,12 +34,27 @@ void View::drawPaths(SolarSystem *system, sf::RenderWindow *window)
         {
             sf::Vertex line[2];
             line[0].position = sf::Vector2f(kv.second[i].getX(), kv.second[i].getY());
-            line[0].color = kv.first->getColor();
+            line[0].color = kv.first->getPlanet()->getColor();
             line[1].position = sf::Vector2f(kv.second[i - 1].getX(), kv.second[i - 1].getY());
-            line[1].color = kv.first->getColor();
+            line[1].color = kv.first->getPlanet()->getColor();
             window->draw(line, 2, sf::Lines);
         }
     }
+    for(unsigned int i = 0; i < system->getPlanetSystems().size(); i++) {
+        for (const auto &kv : system->getPlanetSystems()[i]->getPaths())
+        {
+            for (unsigned int i = 1; i < kv.second.size(); i++)
+            {
+                sf::Vertex line[2];
+                line[0].position = sf::Vector2f(kv.second[i].getX(), kv.second[i].getY());
+                line[0].color = kv.first->getColor();
+                line[1].position = sf::Vector2f(kv.second[i - 1].getX(), kv.second[i - 1].getY());
+                line[1].color = kv.first->getColor();
+                window->draw(line, 2, sf::Lines);
+            }
+        }
+    }
+    
 }
 
 void View::drawPathsArt(SolarSystem *system, sf::RenderWindow *window)
@@ -50,9 +68,9 @@ void View::drawPathsArt(SolarSystem *system, sf::RenderWindow *window)
         {
             sf::Vertex line[2];
             line[0].position = sf::Vector2f(path.second[i].getX(), path.second[i].getY());
-            line[0].color = path.first->getColor();
+            line[0].color = path.first->getPlanet()->getColor();
             line[1].position = sf::Vector2f(path.second[i - n].getX(), path.second[i - n].getY());
-            line[1].color = path.first->getColor();
+            line[1].color = path.first->getPlanet()->getColor();
             window->draw(line, 2, sf::Lines);
             i += 1;
         }

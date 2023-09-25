@@ -10,7 +10,7 @@ class Controller
 private:
     View view;
     Model model;
-    bool is_active = true;
+    bool is_active = false;
 
 public:
     Controller(int const width, int const height, sf::RenderWindow &mainWin_, sf::RenderWindow &sliderWin_);

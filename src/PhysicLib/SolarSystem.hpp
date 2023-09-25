@@ -8,16 +8,16 @@ using namespace std;
 
 #include "Planet.hpp"
 #include "Star.hpp"
+#include "PlanetSystem.hpp"
 
 // class CelestialBody;
 
 class SolarSystem
 {
 private:
-    map<Planet *, vector<Vector2D>> paths;
-    std::vector<Planet *> celestialBodys;
+    map<PlanetSystem *, vector<Vector2D>> paths;
+    std::vector<PlanetSystem *> planetSystems;
     Star *star;
-    Vector2D center;
     Vector2D dimension;
 
 public:
@@ -26,21 +26,22 @@ public:
     virtual ~SolarSystem();
 
     // static map<CelestialBody, vector<Vector2D>> getPaths();
-    vector<Planet *> getBodys();
-    map<Planet *, vector<Vector2D>> getPaths();
+    vector<PlanetSystem *> getPlanetSystems();
+    map<PlanetSystem *, vector<Vector2D>> getPaths();
     Vector2D getDimension();
     Vector2D getCenter();
     Star *getStar();
     void setStar(Star *s);
-    void addBody(Planet *body);
-    void addPath(Planet *body, Vector2D vect);
-    void findIndexBody(CelestialBody *c);
+    void addPlanetSysem(PlanetSystem *body);
+    void addPlanetSysem(PlanetSystem *body, Vector2D c);
+    void addPath(PlanetSystem *body, Vector2D vect);
     void updateAllPositions();
     void newtonGravAll();
 
-    void generateRandomPlanet();
-    void generateLessRandomPlanet();
-    void generateXAxisPlanet();
+    void generateRandomPlanetSystem();
+    void generateLessRandomPlanetSystem();
+    void generateXAxisPlanetSystem();
+    
 };
 
 #endif

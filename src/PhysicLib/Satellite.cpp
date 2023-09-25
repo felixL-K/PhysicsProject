@@ -5,19 +5,19 @@
 #include "CelestialBody.hpp"
 #include "GlobalValues.hpp"
 
-Satellite::Satellite(Planet *planet) : CelestialBody(planet)
+Satellite::Satellite(PlanetSystem *system) : CelestialBody(10, 10, Vector2D{0, 0}, Vector2D{0, 0}), planetSystem{system}
 {
-    planet->addBody(this);
+    system->addSatellite(this);
 }
 
-Satellite::Satellite(double massIn, Vector2D posIn, Planet *planet) : CelestialBody(massIn, posIn, planet)
+Satellite::Satellite(double massIn, Vector2D posIn, PlanetSystem *system) : CelestialBody(massIn, posIn), planetSystem{system}
 {
-    planet->addBody(this);
+    system->addSatellite(this);
 }
 
-Satellite::Satellite(double diameter, double massIn, Vector2D posIn, Vector2D velocity, Planet *planet) : CelestialBody(diameter, massIn, posIn, velocity, planet)
+Satellite::Satellite(double diameter, double massIn, Vector2D posIn, Vector2D velocity, PlanetSystem *system) : CelestialBody(diameter, massIn, posIn, velocity), planetSystem{system}
 {
-    planet->addBody(this);
+    system->addSatellite(this);
 }
 
 Satellite::~Satellite()
@@ -28,5 +28,5 @@ Satellite::~Satellite()
 void Satellite::updatePosition()
 {
     position.add(velocity * GlobalValues::timeScale);
-    solarSystem->addPath(this, position);
+    planetSystem->addPath(this, position);
 }

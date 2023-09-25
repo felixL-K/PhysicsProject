@@ -3,7 +3,7 @@
 #include "GlobalValues.hpp"
 
 // Constructeur
-SolarSystem::SolarSystem(Vector2D center) : paths{}, celestialBodys{}, dimension{5 * GlobalValues::ASTROUNIT, 5 * GlobalValues::ASTROUNIT}, center{center}
+SolarSystem::SolarSystem(Vector2D center) : paths{}, planetSystems{}, dimension{5 * GlobalValues::ASTROUNIT, 5 * GlobalValues::ASTROUNIT}
 {
   double rand1 = (double)rand() / RAND_MAX;
   double massSun = (rand1 * 7.5 + 0.5) * GlobalValues::SOLARMASS;
@@ -15,20 +15,20 @@ SolarSystem::~SolarSystem()
 {
   cout << "deleting SolarSystem" << endl;
 
-  for (int i = 0; i < celestialBodys.size(); i++)
+  for (int i = 0; i < planetSystems.size(); i++)
   {
-    delete (celestialBodys[i]);
+    delete (planetSystems[i]);
   }
 
   delete star;
 }
 
-vector<Planet *> SolarSystem::getBodys()
+vector<PlanetSystem *> SolarSystem::getPlanetSystems()
 {
-  return celestialBodys;
+  return planetSystems;
 }
 
-map<Planet *, vector<Vector2D>> SolarSystem::getPaths()
+map<PlanetSystem *, vector<Vector2D>> SolarSystem::getPaths()
 {
   return paths;
 }
@@ -39,13 +39,19 @@ Vector2D SolarSystem::getDimension()
 }
 Vector2D SolarSystem::getCenter()
 {
-  return center;
+  return star->getPosition();
 }
 
-void SolarSystem::addBody(Planet *body)
+void SolarSystem::addPlanetSysem(PlanetSystem *body)
 {
-  celestialBodys.push_back(body);
-  addPath(body, body->getPosition());
+  planetSystems.push_back(body);
+  addPath(body, body->getCenter());
+  return;
+}
+void SolarSystem::addPlanetSysem(PlanetSystem *body, Vector2D c)
+{
+  planetSystems.push_back(body);
+  addPath(body, c);
   return;
 }
 
@@ -53,7 +59,7 @@ void SolarSystem::addBody(Planet *body)
 
 // }
 
-void SolarSystem::addPath(Planet *body, Vector2D vect)
+void SolarSystem::addPath(PlanetSystem *body, Vector2D vect)
 {
   if (paths.find(body) == paths.end())
   {
@@ -83,44 +89,34 @@ void SolarSystem::addPath(Planet *body, Vector2D vect)
   }
 }
 
-// maintenant des vector de pointeurs, il faut jouer avec vector dans le maine pour comprendre
-// comment marchent les fonctions begin, end etc sur des int et des int*
-void SolarSystem::findIndexBody(CelestialBody *ser)
-{
-  // std::vector<CelestialBody*>::iterator it;
-  // it = std::find(*(celestialBodys.begin()),*(celestialBodys.end()), *ser);
-  // if (it != celestialBodys.end()) {
-  //   std::cout << "Element " << ser << " found at position : ";
-  //   std::cout << it - celestialBodys.begin() << " (counting from zero) \n";
-  // }
-  // else
-  //   std::cout << "Element not found.\n\n";
-}
 
 void SolarSystem::updateAllPositions()
 {
-  for (unsigned int i = 0; i < getBodys().size(); i++)
+  for (unsigned int i = 0; i < getPlanetSystems().size(); i++)
   {
-    getBodys()[i]->updatePosition();
+    getPlanetSystems()[i]->updatePosition();
+    // update positions of satellites
+    getPlanetSystems()[i]->updateAllPositionsSatellites();
   }
 }
 
 void SolarSystem::newtonGravAll()
 {
-  for (unsigned int i = 0; i < getBodys().size(); i++)
+  for (unsigned int i = 0; i < getPlanetSystems().size(); i++)
   {
-    for (unsigned int j = 0; j < getBodys().size(); j++)
-    {
-      if (i != j)
-      {
-        getBodys()[i]->newtonGrav(getBodys()[j]);
-      }
-    }
-    getBodys()[i]->newtonGravAllStars();
+    // for (unsigned int j = 0; j < getPlanetSystems().size(); j++)
+    // {
+    //   if (i != j)
+    //   {
+    //     getPlanetSystems()[i]->getPlanet()->newtonGrav(getPlanetSystems()[j]->getPlanet());
+    //   }
+    // }
+    getPlanetSystems()[i]->getPlanet()->newtonGravAllStars();
+    getPlanetSystems()[i]->newtonGravAll();
   }
 }
 
-void SolarSystem::generateRandomPlanet()
+void SolarSystem::generateRandomPlanetSystem()
 {
   double height = dimension.getX() / 2;
   double width = dimension.getY() / 2;
@@ -154,12 +150,12 @@ void SolarSystem::generateRandomPlanet()
   // cout << "y : " << numberY << endl;
 
   double x = numberX * width;
-  x += center.getX();
+  x += getCenter().getX();
   // if (x<0) { x = -x; }
   // cout << "x : " << x << endl;
 
   double y = numberY * height;
-  y += center.getY();
+  y += getCenter().getY();
   // if (y<0) { y = -y; }
   // cout << "y : " << y << endl;
 
@@ -186,14 +182,16 @@ void SolarSystem::generateRandomPlanet()
   }
   // cout << "vy : " << vy << endl;
 
-  Planet *object = new Planet{m, Vector2D{x, y}, this};
+  PlanetSystem *planetSys = new PlanetSystem{Vector2D{x, y},this};
+  Planet *object = new Planet{m, Vector2D{x, y}, planetSys};
   object->addVelocity(Vector2D{vx, vy});
+
   // object->diameter = findDiametre(m);
 
   // cout << "===============" << endl;
 }
 
-void SolarSystem::generateLessRandomPlanet()
+void SolarSystem::generateLessRandomPlanetSystem()
 {
   double height = dimension.getX() / 2;
   double width = dimension.getY() / 2;
@@ -211,14 +209,14 @@ void SolarSystem::generateLessRandomPlanet()
   {
     x = -x;
   }
-  x += center.getX();
+  x += getCenter().getX();
 
   double y = numberY * height;
   if (y < 0)
   {
     y = -y;
   }
-  y += center.getY();
+  y += getCenter().getY();
 
   double f = (double)rand() / RAND_MAX;
   double m = f * pow(10, 4) * pow(10, 23);
@@ -230,14 +228,16 @@ void SolarSystem::generateLessRandomPlanet()
   f = (double)rand() / RAND_MAX;
   double vy = f * 10 * (-1);
 
-  Planet *object = new Planet{m, Vector2D{x, y}, this};
+  PlanetSystem *planetSys = new PlanetSystem{Vector2D{x, y},this};
+  Planet *object = new Planet{m, Vector2D{x, y}, planetSys};
   object->addVelocity(Vector2D{vx, vy});
+
   // object->diameter = findDiametre(m);
 
   // cout << "===============" << endl;
 }
 
-void SolarSystem::generateXAxisPlanet()
+void SolarSystem::generateXAxisPlanetSystem()
 {
   double height = dimension.getX() / 2;
   double width = dimension.getY() / 2;
@@ -256,10 +256,10 @@ void SolarSystem::generateXAxisPlanet()
     x = -x;
   }
   x = std::fmod(x, pow(10, 14));
-  x += center.getX();
+  x += getCenter().getX();
   x += GlobalValues::ASTROUNIT / 10;
 
-  double y = center.getY();
+  double y = getCenter().getY();
 
   double f = (double)rand() / RAND_MAX;
   double m = f * pow(10, 4) * pow(10, 23);
@@ -270,8 +270,9 @@ void SolarSystem::generateXAxisPlanet()
 
   f = (double)rand() / RAND_MAX;
   double vy = f * 5 * (-1) - 5;
-
-  Planet *object = new Planet{m, Vector2D{x, y}, this};
+  
+  PlanetSystem *planetSys = new PlanetSystem{Vector2D{x, y},this};
+  Planet *object = new Planet{m, Vector2D{x, y}, planetSys};
   object->addVelocity(Vector2D{vx, vy});
 
   double d = (double)rand() / RAND_MAX;
@@ -297,8 +298,13 @@ void SolarSystem::generateXAxisPlanet()
   }
   object->setDiameter(diam * GlobalValues::EARTHDIAMETER);
 
+  for (int i = 0; i < 5; i++)
+  {
+      planetSys->generateXAxisSatellite();
+  }
   // cout << "===============" << endl;
 }
+
 
 Star *SolarSystem::getStar()
 {

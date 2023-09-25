@@ -14,14 +14,14 @@ int main()
 
     for (int i = 0; i < 100; i++)
     {
-        system->generateRandomPlanet();
+        system->generateRandomPlanetSystem();
     }
 
     SolarSystem *system1 = new SolarSystem{Vector2D{3 * GlobalValues::ASTROUNIT, 3 * GlobalValues::ASTROUNIT}};
 
     for (int i = 0; i < 100; i++)
     {
-        system1->generateRandomPlanet();
+        system1->generateRandomPlanetSystem();
     }
 
     constexpr int width = 900;

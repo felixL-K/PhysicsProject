@@ -6,20 +6,24 @@ using namespace std;
 
 #include "Vector2D.hpp"
 #include "CelestialBody.hpp"
-class SolarSystem;
+#include "PlanetSystem.hpp"
+
+// class PlanetSystem;
 
 class Planet : public CelestialBody
 {
 private:
-    SolarSystem *solarSystem;
+    PlanetSystem *planetSystem;
 
 public:
     // Constructeurs & Destructeur
-    Planet(SolarSystem *system);
-    Planet(double massIn, Vector2D posIn, SolarSystem *system);
-    Planet(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem *system);
+    Planet(PlanetSystem *system);
+    Planet(double massIn, Vector2D posIn, PlanetSystem *system);
+    Planet(double diameter, double massIn, Vector2D posIn, Vector2D velocity, PlanetSystem *system);
     virtual ~Planet();
+    PlanetSystem* getPlanetSystem();
     void updatePosition();
+
 };
 
 #endif

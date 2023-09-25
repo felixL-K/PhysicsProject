@@ -1,21 +1,22 @@
 #include <iostream>
 #include "Planet.hpp"
-#include "SolarSystem.hpp"
 #include "GlobalValues.hpp"
 
-Planet::Planet(SolarSystem *system) : CelestialBody(10, 10, Vector2D{0, 0}, Vector2D{0, 0}), solarSystem{system}
+Planet::Planet(PlanetSystem *system) : CelestialBody(10, 10, Vector2D{0, 0}, Vector2D{0, 0}), planetSystem{system}
 {
-    system->addBody(this);
+    system->setPlanet(this);
+    setDiameter(50);
 }
 
-Planet::Planet(double massIn, Vector2D posIn, SolarSystem *system) : CelestialBody(massIn, posIn), solarSystem{system}
+Planet::Planet(double massIn, Vector2D posIn, PlanetSystem *system) : CelestialBody(massIn, posIn), planetSystem{system}
 {
-    system->addBody(this);
+    system->setPlanet(this);
+    setDiameter(50);
 }
 
-Planet::Planet(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem *system) : CelestialBody(diameter, massIn, posIn, velocity), solarSystem{system}
+Planet::Planet(double diameter, double massIn, Vector2D posIn, Vector2D velocity, PlanetSystem *system) : CelestialBody(diameter, massIn, posIn, velocity), planetSystem{system}
 {
-    system->addBody(this);
+    system->setPlanet(this);
 }
 
 Planet::~Planet()
@@ -23,8 +24,12 @@ Planet::~Planet()
     // cout << "deleting Planet" << endl;
 }
 
+PlanetSystem* Planet::getPlanetSystem() {
+    return planetSystem;
+}
+
 void Planet::updatePosition()
 {
     position.add(velocity * GlobalValues::timeScale);
-    solarSystem->addPath(this, position);
+    getPlanetSystem()->getSolarSystem()->addPath(getPlanetSystem(), position);
 }

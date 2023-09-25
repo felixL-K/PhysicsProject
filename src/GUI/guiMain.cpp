@@ -98,9 +98,9 @@ void guiMain::play(SolarSystem *system)
 
 void guiMain::drawAllObjects(SolarSystem *system, RenderWindow *window)
 {
-    for (unsigned int i = 0; i < system->getBodys().size(); i++)
+    for (unsigned int i = 0; i < system->getPlanetSystems().size(); i++)
     {
-        system->getBodys()[i]->drawObject(window);
+        system->getPlanetSystems()[i]->getPlanet()->drawObject(window);
     }
     system->getStar()->drawObject(window);
 }
@@ -113,9 +113,9 @@ void guiMain::drawPaths(SolarSystem *system, RenderWindow *window)
         {
             sf::Vertex line[2];
             line[0].position = sf::Vector2f(kv.second[i].getX(), kv.second[i].getY());
-            line[0].color = kv.first->getColor();
+            line[0].color = kv.first->getPlanet()->getColor();
             line[1].position = sf::Vector2f(kv.second[i - 1].getX(), kv.second[i - 1].getY());
-            line[1].color = kv.first->getColor();
+            line[1].color = kv.first->getPlanet()->getColor();
             window->draw(line, 2, sf::Lines);
         }
     }
