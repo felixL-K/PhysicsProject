@@ -1,21 +1,21 @@
+#include "../GUI/guiMain.hpp"
+#include "../PhysicLib/SolarSystem.hpp"
 #include "MainClass.hpp"
 #include "Vector2D.hpp"
-#include "../PhysicLib/SolarSystem.hpp"
-#include "../GUI/guiMain.hpp"
 // #include <wx/wx.h>
 
 #include <iostream>
 int main() {
 
-	SolarSystem* system = new SolarSystem{Vector2D{0,0}};
+  SolarSystem *system = new SolarSystem{Vector2D{0, 0}};
 
-    for(int i=0;i<100;i++)
-        system->generateXAxisPlanet();
+  for (int i = 0; i < 100; i++)
+    system->generateXAxisPlanet();
 
-    guiMain g{};
-    g.play(system);
+  guiMain g{};
+  g.play(system);
 
-    delete system;
+  delete system;
 
-	return 0;
+  return 0;
 }

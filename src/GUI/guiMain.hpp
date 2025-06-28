@@ -3,30 +3,28 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../PhysicLib/Vector2D.hpp"
-#include "../PhysicLib/SolarSystem.hpp"
 #include "../PhysicLib/CelestialBody.hpp"
+#include "../PhysicLib/SolarSystem.hpp"
+#include "../PhysicLib/Vector2D.hpp"
 
 #include "../GUI/SliderSFML.hpp"
 
-
 class guiMain {
-    private:
-        //SolarSystem* system;
-        static SliderSFML sliderTimeScale;
-        static SliderSFML sliderPathSize;
-    public:
-        guiMain();
-        void drawAllObjects(SolarSystem* system, sf::RenderWindow *window);
-        void drawPaths(SolarSystem* system, sf::RenderWindow *window);
-        void play(SolarSystem* system);
-        virtual ~guiMain();
-        void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom);
+private:
+  // SolarSystem* system;
+  static SliderSFML sliderTimeScale;
+  static SliderSFML sliderPathSize;
 
-        static SliderSFML getSliderTimeScale();
-        static SliderSFML getSliderPathSize();
+public:
+  guiMain();
+  void drawAllObjects(SolarSystem *system, sf::RenderWindow *window);
+  void drawPaths(SolarSystem *system, sf::RenderWindow *window);
+  void play(SolarSystem *system);
+  virtual ~guiMain();
+  void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom);
+
+  static SliderSFML getSliderTimeScale();
+  static SliderSFML getSliderPathSize();
 };
 
-
 #endif
-
