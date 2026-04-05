@@ -21,5 +21,4 @@ double GlobalValues::pathSize = 30;
 void GlobalValues::updateGlobalValues() {
     GlobalValues::timeScale = guiMain::getSliderTimeScale().getSliderValue();
     GlobalValues::pathSize = guiMain::getSliderPathSize().getSliderValue();
-
 }

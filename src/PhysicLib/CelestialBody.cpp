@@ -7,31 +7,28 @@
 
 // Constructeur
 //solarSystem{new SolarSystem{}},
-CelestialBody::CelestialBody(SolarSystem* system) : diameter{10}, mass{10}, position{Vector2D{0,0}}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {
-    
-}
+CelestialBody::CelestialBody(SolarSystem* system)
+    : diameter{10}, mass{10}, position{Vector2D{0,0}}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {}
 
-CelestialBody::CelestialBody(double massIn, Vector2D posIn, SolarSystem* system) : diameter{10}, mass{massIn}, position{posIn}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {
-    
-}
+CelestialBody::CelestialBody(double massIn, Vector2D posIn, SolarSystem* system)
+    : diameter{10}, mass{massIn}, position{posIn}, velocity{Vector2D{0,0}}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {}
 
 CelestialBody::CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem* system)
-: diameter{diameter},mass{massIn},position{posIn}, velocity{velocity}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {}
+    : diameter{diameter},mass{massIn},position{posIn}, velocity{velocity}, color{rand() % 255, rand() % 255, rand() % 255}, solarSystem{system} {}
 
 CelestialBody::CelestialBody(const CelestialBody & vect) 
-: diameter{vect.getDiameter()}, mass{vect.getMass()}, position{vect.getPosition()},  velocity{vect.getVelocity()}, color{rand() % 255, rand() % 255, rand() % 255} {}
+    : diameter{vect.getDiameter()}, mass{vect.getMass()}, position{vect.getPosition()},  velocity{vect.getVelocity()}, color{rand() % 255, rand() % 255, rand() % 255} {}
 
 
 CelestialBody::~CelestialBody() {
-    //cout << "deleting CelestialBody" << endl;
-    
+    //cout << "deleting CelestialBody" << endl;    
 }
 
 /*
-Surcharge de l'égalité
-CelestialBody CelestialBody::&operator=(const CelestialBody & vect) {
-    return new CelestialBody(vect.getX(),vect.getY());
-}
+  Surcharge de l'égalité
+  CelestialBody CelestialBody::&operator=(const CelestialBody & vect) {
+  return new CelestialBody(vect.getX(),vect.getY());
+  }
 */
 
 // getters & setters
@@ -52,16 +49,16 @@ Vector2D CelestialBody::getVelocity() const {
 sf::Color CelestialBody::getColor() const {
     return color;
 }
-void CelestialBody::setDiameter(double x){
+void CelestialBody::setDiameter(double x) {
     diameter = x;
 }
-void CelestialBody::setMass(double x){
+void CelestialBody::setMass(double x) {
     mass = x;
 }
-void CelestialBody::setPosition(Vector2D x){
+void CelestialBody::setPosition(Vector2D x) {
     position = x;
 }
-void CelestialBody::setVelocity(Vector2D x){
+void CelestialBody::setVelocity(Vector2D x) {
     velocity = x;
 }
 void CelestialBody::setColor(int r, int g, int b) {
@@ -83,7 +80,7 @@ void CelestialBody::addVelocity(double dirx, double diry) {
     velocity.add(dirx*GlobalValues::timeScale, diry*GlobalValues::timeScale);
 }
 
-double CelestialBody::distance(CelestialBody* p){
+double CelestialBody::distance(CelestialBody* p) {
     return position.distance(p->getPosition());
 }
 
@@ -101,7 +98,7 @@ void CelestialBody::newtonGrav(CelestialBody* p) {
     return;
 }
 
-void CelestialBody::checkCollision(CelestialBody* p){
+void CelestialBody::checkCollision(CelestialBody* p) {
 
 }
 

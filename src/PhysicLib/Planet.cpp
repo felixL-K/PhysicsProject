@@ -21,7 +21,7 @@ Planet::~Planet() {
     //cout << "deleting Planet" << endl;
 }
 
-void Planet::updatePosition(){
+void Planet::updatePosition() {
     //position.add(Vector2D::multiply(velocity, MainClass::getDELTATIME2()));
     position.add(velocity*GlobalValues::timeScale);
     solarSystem->addPath(this,position);

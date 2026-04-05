@@ -1,11 +1,6 @@
 #include "guiMain.hpp"
 #include "../PhysicLib/GlobalValues.hpp"
 
-// #include <iostream>
-// #include <SFML/System.hpp> 
-// #include <SFML/Window.hpp> 
-// #include <SFML/Graphics.hpp> 
-// #include <vector>
 using namespace sf;
 
 SliderSFML guiMain::sliderTimeScale{100, 100, 5000, 30000, "TimeScale"};
@@ -17,8 +12,7 @@ guiMain::guiMain() {
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play(SolarSystem* system) {
-
-  RenderWindow window(sf::VideoMode(sf::Vector2u(900,900)),"Rendering the rectangle1.");
+    RenderWindow window(sf::VideoMode(sf::Vector2u(900,900)),"Rendering the rectangle1.");
     window.setFramerateLimit(60);
     window.setPosition(sf::Vector2i(0, 50));
     sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
@@ -30,11 +24,11 @@ void guiMain::play(SolarSystem* system) {
 
     // Slider window 
     sf::RenderWindow sliderWindow(sf::VideoMode(sf::Vector2u(500, 500)), "Slider!");
-	sliderWindow.setFramerateLimit(60);
+    sliderWindow.setFramerateLimit(60);
     sliderWindow.setPosition(sf::Vector2i(50, 10));
     
 
-    while(window.isOpen() && sliderWindow.isOpen()){
+    while(window.isOpen() && sliderWindow.isOpen()) {
         GlobalValues::updateGlobalValues();
         // Updating principal window
         window.clear(Color::Black);
@@ -46,7 +40,7 @@ void guiMain::play(SolarSystem* system) {
 
         // Updating slider window
         sliderWindow.clear(sf::Color(25,29,33));
-		sliderTimeScale.draw(sliderWindow);
+	sliderTimeScale.draw(sliderWindow);
         sliderPathSize.draw(sliderWindow);
         sliderWindow.display();
 
@@ -54,41 +48,36 @@ void guiMain::play(SolarSystem* system) {
         const float zoomAmount{ 1.1f }; // zoom by 10%
 
         //System of turn per second
-        const sf::Time freezeLength{ sf::milliseconds(1000.0/GlobalValues::PHYSICS_TICK_SPEED) };
+        const sf::Time freezeLength { sf::milliseconds(1000.0/GlobalValues::PHYSICS_TICK_SPEED) };
         sf::Clock freezeClock;
-        while (freezeClock.getElapsedTime() < freezeLength)
-	  {
+        while (freezeClock.getElapsedTime() < freezeLength) {
 	    while (auto event = window.pollEvent()) {
-	      if (event->is<sf::Event::Closed>()) {
-		window.close();
-		sliderWindow.close();
-	      }
-
-	      if (auto scroll = event->getIf<sf::Event::MouseWheelScrolled>()) {
-		if (scroll->delta > 0)
-		  zoomViewAt(sf::Vector2i(scroll->position), window, 1.f / zoomAmount);
-		else
-		  zoomViewAt(sf::Vector2i(scroll->position), window, zoomAmount);
-	      }
-
-	      if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
-		if (mouse->button == sf::Mouse::Button::Right) {
-		  std::cout << "mouse x: " << mouse->position.x << std::endl;
-		  std::cout << "mouse y: " << mouse->position.y << std::endl;
+		if (event->is<sf::Event::Closed>()) {
+		    window.close();
+		    sliderWindow.close();
 		}
-	      }
 
-	      if (auto key = event->getIf<sf::Event::KeyPressed>()) {
-		if (key->code == sf::Keyboard::Key::Backspace) {
-		  window.setView(View1);
+		if (auto scroll = event->getIf<sf::Event::MouseWheelScrolled>()) {
+		    if (scroll->delta > 0)
+			zoomViewAt(sf::Vector2i(scroll->position), window, 1.f / zoomAmount);
+		    else
+			zoomViewAt(sf::Vector2i(scroll->position), window, zoomAmount);
 		}
-	      }
+
+		if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
+		    if (mouse->button == sf::Mouse::Button::Right) {
+			std::cout << "mouse x: " << mouse->position.x << std::endl;
+			std::cout << "mouse y: " << mouse->position.y << std::endl;
+		    }
+		}
+
+		if (auto key = event->getIf<sf::Event::KeyPressed>()) {
+		    if (key->code == sf::Keyboard::Key::Backspace) {
+			window.setView(View1);
+		    }
+		}
 	    }
-        }
-
-        
-        
-        
+        }        
     }
 }
 
@@ -118,14 +107,14 @@ guiMain::~guiMain() {
 }
 
 void guiMain::zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom) {
-	const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };
-	sf::View view{ window.getView() };
-	view.zoom(zoom);
-	window.setView(view);
-	const sf::Vector2f afterCoord{ window.mapPixelToCoords(pixel) };
-	const sf::Vector2f offsetCoords{ beforeCoord - afterCoord };
-	view.move(offsetCoords);
-	window.setView(view);
+    const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };
+    sf::View view{ window.getView() };
+    view.zoom(zoom);
+    window.setView(view);
+    const sf::Vector2f afterCoord{ window.mapPixelToCoords(pixel) };
+    const sf::Vector2f offsetCoords{ beforeCoord - afterCoord };
+    view.move(offsetCoords);
+    window.setView(view);
 }
 
 SliderSFML guiMain::getSliderTimeScale() {

@@ -17,10 +17,10 @@ Vector2D::~Vector2D() {
 }
 
 /*
-Surcharge de l'égalité
-Vector2D Vector2D::&operator=(const Vector2D & vect) {
-    return new Vector2D(vect.getX(),vect.getY());
-}
+  Surcharge de l'égalité
+  Vector2D Vector2D::&operator=(const Vector2D & vect) {
+  return new Vector2D(vect.getX(),vect.getY());
+  }
 */
 
 double Vector2D::getX() const {

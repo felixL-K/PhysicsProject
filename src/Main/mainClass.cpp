@@ -7,7 +7,7 @@
 #include <iostream>
 int main() {
 
-	SolarSystem* system = new SolarSystem{Vector2D{0,0}};
+    SolarSystem* system = new SolarSystem{Vector2D{0,0}};
 
     for(int i=0;i<100;i++)
         system->generateRandomPlanet();
@@ -17,5 +17,5 @@ int main() {
 
     delete system;
 
-	return 0;
+    return 0;
 }

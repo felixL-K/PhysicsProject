@@ -5,9 +5,9 @@
 #define _MAINCLASS
 
 class MainClass {
-    private:
+private:
 
-    public:
+public:
         
 };
 

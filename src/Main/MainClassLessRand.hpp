@@ -5,9 +5,9 @@
 #define _MAINCLASSLESSRAND
 
 class MainClassLessRand {
-    private:
+private:
 
-    public:
+public:
         
 };
 
