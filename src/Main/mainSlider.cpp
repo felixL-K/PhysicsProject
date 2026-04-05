@@ -2,7 +2,7 @@
 
 int main()
 {
-	sf::RenderWindow sliderWindow(sf::VideoMode(500, 500), "Slider!");
+	sf::RenderWindow sliderWindow(sf::VideoMode(sf::Vector2u(500, 500)), "Slider!");
 	sliderWindow.setFramerateLimit(60);
 
 	SliderSFML slider1(100, 100);
@@ -17,10 +17,9 @@ int main()
 
 	while (sliderWindow.isOpen())
 	{
-		sf::Event event;
-		while (sliderWindow.pollEvent(event))
+		while (auto event = sliderWindow.pollEvent())
 		{
-			if (event.type == sf::Event::Closed)
+			if (event->is<sf::Event::Closed>())
 				sliderWindow.close();
 		}
 

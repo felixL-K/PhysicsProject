@@ -18,7 +18,7 @@ guiMain::guiMain() {
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play(SolarSystem* system) {
 
-    RenderWindow window(VideoMode(900,900),"Rendering the rectangle1.");
+  RenderWindow window(sf::VideoMode(sf::Vector2u(900,900)),"Rendering the rectangle1.");
     window.setFramerateLimit(60);
     window.setPosition(sf::Vector2i(0, 50));
     sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
@@ -29,7 +29,7 @@ void guiMain::play(SolarSystem* system) {
     window.setView(View1);
 
     // Slider window 
-    sf::RenderWindow sliderWindow(sf::VideoMode(500, 500), "Slider!");
+    sf::RenderWindow sliderWindow(sf::VideoMode(sf::Vector2u(500, 500)), "Slider!");
 	sliderWindow.setFramerateLimit(60);
     sliderWindow.setPosition(sf::Vector2i(50, 10));
     
@@ -57,32 +57,33 @@ void guiMain::play(SolarSystem* system) {
         const sf::Time freezeLength{ sf::milliseconds(1000.0/GlobalValues::PHYSICS_TICK_SPEED) };
         sf::Clock freezeClock;
         while (freezeClock.getElapsedTime() < freezeLength)
-        {
-            sf::Event event;
-            while (window.pollEvent(event) || sliderWindow.pollEvent(event)) {
-                if (event.type == Event::Closed) {
-                    // Close window button clicked.
-                    window.close();
-                    sliderWindow.close();
-                }
-                if (event.type == sf::Event::MouseWheelScrolled) {
-                    if (event.mouseWheelScroll.delta > 0)
-                        zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, (1.f / zoomAmount));
-                    else if (event.mouseWheelScroll.delta < 0)
-                        zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, zoomAmount);
-                } else if (event.type == sf::Event::MouseButtonPressed) {
-                    if (event.mouseButton.button == sf::Mouse::Right) {
-                        std::cout << "the right button was pressed" << std::endl;
-                        std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-                        std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-                    }
-                } else if (event.type == sf::Event::KeyPressed) {
-                    if (event.key.code == sf::Keyboard::BackSpace)
-                    {
-                        window.setView(View1);
-                    }
-                }
-            }
+	  {
+	    while (auto event = window.pollEvent()) {
+	      if (event->is<sf::Event::Closed>()) {
+		window.close();
+		sliderWindow.close();
+	      }
+
+	      if (auto scroll = event->getIf<sf::Event::MouseWheelScrolled>()) {
+		if (scroll->delta > 0)
+		  zoomViewAt(sf::Vector2i(scroll->position), window, 1.f / zoomAmount);
+		else
+		  zoomViewAt(sf::Vector2i(scroll->position), window, zoomAmount);
+	      }
+
+	      if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
+		if (mouse->button == sf::Mouse::Button::Right) {
+		  std::cout << "mouse x: " << mouse->position.x << std::endl;
+		  std::cout << "mouse y: " << mouse->position.y << std::endl;
+		}
+	      }
+
+	      if (auto key = event->getIf<sf::Event::KeyPressed>()) {
+		if (key->code == sf::Keyboard::Key::Backspace) {
+		  window.setView(View1);
+		}
+	      }
+	    }
         }
 
         
@@ -106,7 +107,7 @@ void guiMain::drawPaths(SolarSystem* system, RenderWindow *window) {
             line[0].color  = kv.first->getColor();
             line[1].position = sf::Vector2f(kv.second[i-1].getX(), kv.second[i-1].getY());
             line[1].color = kv.first->getColor();
-            window->draw(line, 2, sf::Lines);
+            window->draw(line, 2, sf::PrimitiveType::Lines);
         }
     }
 }

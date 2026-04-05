@@ -7,7 +7,6 @@ class SliderSFML
 	sf::RectangleShape slider;
 	sf::RectangleShape axis;
 	sf::Font font;
-	sf::Text text;
 	int minValue;
 	int maxValue;
 	int xCord;
