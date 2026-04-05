@@ -7,12 +7,15 @@ SliderSFML guiMain::sliderTimeScale{100, 100, 5000, 30000, "TimeScale"};
 SliderSFML guiMain::sliderPathSize{100, 200, 3, 300, "Path Size",30};
 
 guiMain::guiMain() {
-    
+    systems.clear();
 }
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play(SolarSystem* system) {
     RenderWindow window(sf::VideoMode(sf::Vector2u(900,900)),"Rendering the rectangle1.");
+
+    systems.push_back(system);
+    
     window.setFramerateLimit(60);
     window.setPosition(sf::Vector2i(0, 50));
     sf::Vector2f Center(system->getCenter().getX(),system->getCenter().getY());
@@ -32,10 +35,12 @@ void guiMain::play(SolarSystem* system) {
         GlobalValues::updateGlobalValues();
         // Updating principal window
         window.clear(Color::Black);
-        system->newtonGravAll();
-        system->updateAllPositions();
-        this->drawAllObjects(system,&window);
-        this->drawPaths(system,&window);
+	for (auto system : systems) {
+	    system->newtonGravAll();
+	    system->updateAllPositions();
+	    this->drawAllObjects(system,&window);
+	    this->drawPaths(system,&window);
+	}
         window.display();
 
         // Updating slider window
@@ -65,9 +70,15 @@ void guiMain::play(SolarSystem* system) {
 		}
 
 		if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
-		    if (mouse->button == sf::Mouse::Button::Right) {
-			std::cout << "mouse x: " << mouse->position.x << std::endl;
-			std::cout << "mouse y: " << mouse->position.y << std::endl;
+		    if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
+			if (mouse->button == sf::Mouse::Button::Right) {
+			    sf::Vector2f worldPos = window.mapPixelToCoords(mouse->position);
+			    SolarSystem* newSystem = new SolarSystem(Vector2D{worldPos.x, worldPos.y});
+			    for(int i = 0; i < 100; i++)
+				newSystem->generateXAxisPlanet();
+			    systems.push_back(newSystem);
+			    std::cout << "Created new SolarSystem at: " << worldPos.x << ", " << worldPos.y << std::endl;
+			}
 		    }
 		}
 
@@ -83,7 +94,7 @@ void guiMain::play(SolarSystem* system) {
 
 void guiMain::drawAllObjects(SolarSystem* system, RenderWindow *window) {
     for(unsigned int i = 0; i < system->getBodys().size(); i++) {
-        system->getBodys()[i]->drawObject(window);
+	system->getBodys()[i]->drawObject(window);
     }
     system->getStar()->drawObject(window);
 }
@@ -102,6 +113,8 @@ void guiMain::drawPaths(SolarSystem* system, RenderWindow *window) {
 }
 
 guiMain::~guiMain() {
+    for(auto sys : systems)
+        delete sys;
     cout << "deleting guiMain" << endl;
     //delete system;
 }

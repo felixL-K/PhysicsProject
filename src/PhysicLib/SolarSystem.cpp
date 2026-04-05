@@ -235,8 +235,7 @@ void SolarSystem::generateXAxisPlanet() {
     }
     x += center.getX();
 
-    double y = 0;
-  
+    double y = numberY * height + center.getY();  
 
     double f = (double)rand() / RAND_MAX;
     double m = f*pow(10,4)*pow(10,23);

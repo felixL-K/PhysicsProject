@@ -13,6 +13,7 @@ private:
     //SolarSystem* system;
     static SliderSFML sliderTimeScale;
     static SliderSFML sliderPathSize;
+    std::vector<SolarSystem*> systems;
 public:
     guiMain();
     void drawAllObjects(SolarSystem* system, sf::RenderWindow *window);
