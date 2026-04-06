@@ -16,7 +16,8 @@ class SliderSFML {
     int sliderHeight;
     float sliderValue;
     std::string title;
-public:
+
+  public:
     SliderSFML(int x, int y);
     SliderSFML(int x, int y, int min, int max, std::string title);
     SliderSFML(int x, int y, int min, int max, std::string title1, int value);
@@ -27,5 +28,5 @@ public:
     float getSliderValue();
     void setSliderValue(float newValue);
     void setSliderPercentValue(float newPercentValue);
-    void draw(sf::RenderWindow & window);
+    void draw(sf::RenderWindow &window);
 };

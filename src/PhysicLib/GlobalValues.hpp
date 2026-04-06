@@ -2,7 +2,7 @@
 #define _GLOBALVALUES
 
 class GlobalValues {
-public:
+  public:
     static int PHYSICS_TICK_SPEED;
     static double timeScale;
     static double SOLARMASS;
@@ -12,9 +12,8 @@ public:
     static double GRAVITATIONALCONSTANT;
     static double pathSize;
 
-    //static double getDeltaTime();
+    // static double getDeltaTime();
     static void updateGlobalValues();
 };
-
 
 #endif

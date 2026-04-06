@@ -1,7 +1,6 @@
 #include "../GUI/SliderSFML.hpp"
 
-int main()
-{
+int main() {
     sf::RenderWindow sliderWindow(sf::VideoMode(sf::Vector2u(500, 500)), "Slider!");
     sliderWindow.setFramerateLimit(60);
 
@@ -16,18 +15,18 @@ int main()
     slider1.setSliderValue(235);
 
     while (sliderWindow.isOpen()) {
-	while (auto event = sliderWindow.pollEvent()) {
-	    if (event->is<sf::Event::Closed>())
-		sliderWindow.close();
-	}
+        while (auto event = sliderWindow.pollEvent()) {
+            if (event->is<sf::Event::Closed>())
+                sliderWindow.close();
+        }
 
-	sliderWindow.clear(sf::Color(25,29,33));
+        sliderWindow.clear(sf::Color(25, 29, 33));
 
-	slider1.draw(sliderWindow);
-	slider2.draw(sliderWindow);
-	slider3.draw(sliderWindow);
+        slider1.draw(sliderWindow);
+        slider2.draw(sliderWindow);
+        slider3.draw(sliderWindow);
 
-	sliderWindow.display();
+        sliderWindow.display();
     }
 
     return 0;

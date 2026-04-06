@@ -9,31 +9,35 @@ using namespace std;
 #include <SFML/Graphics.hpp>
 
 #include "Vector2D.hpp"
-//#include "SolarSystem.hpp"
+// #include "SolarSystem.hpp"
 
 class SolarSystem;
 
 class CelestialBody {
-protected:
-    SolarSystem* solarSystem;
+  protected:
+    SolarSystem *solarSystem;
     double diameter;
     double mass;
     Vector2D position;
     Vector2D velocity;
     sf::Color color;
 
-public:
+  public:
     // Constructeurs & Destructeur
-    CelestialBody(SolarSystem* system);
-    CelestialBody(double massIn, Vector2D posIn, SolarSystem* system);
-    CelestialBody(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem* system);
-    CelestialBody(const CelestialBody &cb); 
-    virtual ~CelestialBody(); 
+    CelestialBody(SolarSystem *system);
+    CelestialBody(double massIn, Vector2D posIn, SolarSystem *system);
+    CelestialBody(double diameter,
+                  double massIn,
+                  Vector2D posIn,
+                  Vector2D velocity,
+                  SolarSystem *system);
+    CelestialBody(const CelestialBody &cb);
+    virtual ~CelestialBody();
 
     // Surcharge de l'initialisation
-    //CelestialBody &operator=(const CelestialBody &); 
-    //Surcharge du <<
-    //friend ostream & operator<<(ostream &,const CelestialBody &); 
+    // CelestialBody &operator=(const CelestialBody &);
+    // Surcharge du <<
+    // friend ostream & operator<<(ostream &,const CelestialBody &);
 
     // getters & setters
     double getDiameter() const;
@@ -50,16 +54,14 @@ public:
     // real functions begin
     void addVelocity(Vector2D forceIn);
     void addVelocity(double dirx, double diry);
-    double distance(CelestialBody* p);
-    void newtonGrav(CelestialBody* p);
-    void checkCollision(CelestialBody* p);
-        
+    double distance(CelestialBody *p);
+    void newtonGrav(CelestialBody *p);
+    void checkCollision(CelestialBody *p);
+
     void drawObject(sf::RenderWindow *window);
 };
 
-
 #endif
 
-bool operator==(const CelestialBody& lhs, const CelestialBody& rhs);
-ostream & operator<<(ostream & out, CelestialBody c);
-
+bool operator==(const CelestialBody &lhs, const CelestialBody &rhs);
+ostream &operator<<(ostream &out, CelestialBody c);

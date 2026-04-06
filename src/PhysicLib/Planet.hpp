@@ -4,22 +4,18 @@
 #include <iostream>
 using namespace std;
 
-#include "Vector2D.hpp"
 #include "CelestialBody.hpp"
+#include "Vector2D.hpp"
 class SolarSystem;
 
 class Planet : public CelestialBody {
-private:
-
-public:
-    Planet(SolarSystem* system);
-    Planet(double massIn, Vector2D posIn, SolarSystem* system);
-    Planet(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem* system);
-    virtual ~Planet(); 
+  private:
+  public:
+    Planet(SolarSystem *system);
+    Planet(double massIn, Vector2D posIn, SolarSystem *system);
+    Planet(double diameter, double massIn, Vector2D posIn, Vector2D velocity, SolarSystem *system);
+    virtual ~Planet();
     void updatePosition();
 };
 
-
 #endif
-
-

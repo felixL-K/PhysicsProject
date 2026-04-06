@@ -7,20 +7,20 @@ using namespace std;
 #include <math.h>
 
 class Vector2D {
-private:
+  private:
     double x;
     double y;
 
-public:
+  public:
     // Constructeur
     Vector2D();
     Vector2D(double vx, double vy);
-    Vector2D(const Vector2D &); 
-    virtual ~Vector2D(); 
+    Vector2D(const Vector2D &);
+    virtual ~Vector2D();
     // Surcharge de l'initialisation
-    //Vector2D &operator=(const Vector2D &); 
-    //Surcharge du <<
-    //friend ostream & operator<<(ostream &,const Vector2D &); 
+    // Vector2D &operator=(const Vector2D &);
+    // Surcharge du <<
+    // friend ostream & operator<<(ostream &,const Vector2D &);
 
     double getX() const;
     double getY() const;
@@ -32,10 +32,9 @@ public:
     float getAngleDegrees(Vector2D target);
     Vector2D operator*(double d);
     Vector2D operator/(double d);
-
 };
 
 #endif
 
-ostream & operator<<(ostream & out, Vector2D c);
-bool operator==(const Vector2D& lhs, const Vector2D& rhs);
+ostream &operator<<(ostream &out, Vector2D c);
+bool operator==(const Vector2D &lhs, const Vector2D &rhs);

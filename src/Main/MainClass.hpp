@@ -1,16 +1,11 @@
 
 
-
 #ifndef _MAINCLASS
 #define _MAINCLASS
 
 class MainClass {
-private:
-
-public:
-        
+  private:
+  public:
 };
 
-
 #endif
-
