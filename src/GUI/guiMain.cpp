@@ -25,7 +25,8 @@ guiMain::guiMain()
 void guiMain::play(SolarSystem *system) {
     RenderWindow window(sf::VideoMode(sf::Vector2u(900, 900)), "Rendering the rectangle1.");
 
-    systems.push_back(system);
+    systems.push_back(new Galaxy{system->getCenter()});
+    systems[0]->addSolarSystem(system);
 
     window.setFramerateLimit(60);
     window.setPosition(sf::Vector2i(0, 50));
@@ -42,12 +43,12 @@ void guiMain::play(SolarSystem *system) {
         GlobalValues::updateGlobalValues();
         // Updating principal window
         window.clear(Color::Black);
-        for (auto system : systems) {
-            system->newtonGravAll();
-            system->updateAllPositions();
-            this->drawAllObjects(system, &window);
-            this->drawPaths(system, &window);
+        for (auto galaxy : systems) {
+            galaxy->newtonGravAll();
+            galaxy->updateAllPositions();
         }
+        this->drawAllGalaxies(&window);
+        this->drawPaths(&window);
         this->drawMenu(window);
         window.display();
 
@@ -92,7 +93,7 @@ void guiMain::play(SolarSystem *system) {
                         SolarSystem *newSystem = new SolarSystem(Vector2D{worldPos.x, worldPos.y});
                         for (int i = 0; i < 100; i++)
                             newSystem->generateXAxisPlanet();
-                        systems.push_back(newSystem);
+                        systems[0]->addSolarSystem(newSystem);
                         std::cout << "Created new SolarSystem at: " << worldPos.x << ", "
                                   << worldPos.y << std::endl;
                     }
@@ -148,16 +149,32 @@ void guiMain::drawAllObjects(SolarSystem *system, RenderWindow *window) {
     system->getStar()->drawObject(window);
 }
 
-void guiMain::drawPaths(SolarSystem *system, RenderWindow *window) {
-    for (const auto &kv : system->getPaths()) {
-        for (unsigned int i = 1; i < kv.second.size(); i++) {
-            sf::Vertex line[2];
-            line[0].position = sf::Vector2f(kv.second[i].getX(), kv.second[i].getY());
-            line[0].color = kv.first->getColor();
-            line[1].position = sf::Vector2f(kv.second[i - 1].getX(), kv.second[i - 1].getY());
-            line[1].color = kv.first->getColor();
-            window->draw(line, 2, sf::PrimitiveType::Lines);
-        }
+void guiMain::drawAllGalaxies(RenderWindow *window) {
+    for (int i = 0; i < systems.size(); i++) {
+	Galaxy *galaxy = systems[i];
+	for (int j = 0; j < galaxy->getSolarSystems().size(); j++) {
+	    SolarSystem *system = galaxy->getSolarSystems()[j];
+	    drawAllObjects(system, window);
+	}
+    }
+}
+
+void guiMain::drawPaths(RenderWindow *window) {
+    for (int i = 0; i < systems.size(); i++) {
+	Galaxy *galaxy = systems[i];
+	for (int j = 0; j < galaxy->getSolarSystems().size(); j++) {
+	    SolarSystem *system = galaxy->getSolarSystems()[j];
+	    for (const auto &kv : system->getPaths()) {
+		for (unsigned int i = 1; i < kv.second.size(); i++) {
+		    sf::Vertex line[2];
+		    line[0].position = sf::Vector2f(kv.second[i].getX(), kv.second[i].getY());
+		    line[0].color = kv.first->getColor();
+		    line[1].position = sf::Vector2f(kv.second[i - 1].getX(), kv.second[i - 1].getY());
+		    line[1].color = kv.first->getColor();
+		    window->draw(line, 2, sf::PrimitiveType::Lines);
+		}
+	    }
+	}
     }
 }
 

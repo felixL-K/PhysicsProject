@@ -1,5 +1,6 @@
 #include "../GUI/guiMain.hpp"
 #include "../PhysicLib/SolarSystem.hpp"
+#include "../PhysicLib/Galaxy.hpp"
 #include "MainClass.hpp"
 #include "Vector2D.hpp"
 // #include <wx/wx.h>

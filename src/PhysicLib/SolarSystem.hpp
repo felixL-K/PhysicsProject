@@ -20,11 +20,9 @@ class SolarSystem {
     Vector2D dimension;
 
   public:
-    // Constructeur
     SolarSystem(Vector2D center);
     virtual ~SolarSystem();
 
-    // static map<CelestialBody, vector<Vector2D>> getPaths();
     vector<Planet *> getBodys();
     map<Planet *, vector<Vector2D>> getPaths();
     Vector2D getDimension();

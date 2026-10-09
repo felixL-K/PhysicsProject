@@ -18,7 +18,7 @@ add_library(physicProjectGUI guiMain.cpp SliderSFML.cpp)
 
 # install(TARGETS physicProjectGUI DESTINATION lib)
 # with set_target_properties(...) it becoms :
-set_target_properties(physicProjectGUI PROPERTIES PUBLIC_HEADER guiMain.hpp SliderSFML.hpp ddd)
+set_target_properties(physicProjectGUI PROPERTIES PUBLIC_HEADER "guiMain.hpp;SliderSFML.hpp")
 install(TARGETS physicProjectGUI LIBRARY DESTINATION lib
         PUBLIC_HEADER DESTINATION include)
         
