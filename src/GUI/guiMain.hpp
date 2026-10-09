@@ -14,10 +14,17 @@ class guiMain {
     static SliderSFML sliderPathSize;
     std::vector<SolarSystem *> systems;
 
+    // Slider menu, drawn over the main window in screen coordinates
+    bool menuOpen;
+    sf::RectangleShape menuButton;
+    sf::RectangleShape menuPanel;
+
   public:
     guiMain();
     void drawAllObjects(SolarSystem *system, sf::RenderWindow *window);
     void drawPaths(SolarSystem *system, sf::RenderWindow *window);
+    void drawMenu(sf::RenderWindow &window);
+    bool isOverMenu(sf::Vector2i pixel);
     void play(SolarSystem *system);
     virtual ~guiMain();
     void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom);

@@ -6,7 +6,20 @@ using namespace sf;
 SliderSFML guiMain::sliderTimeScale{100, 100, 5000, 30000, "TimeScale"};
 SliderSFML guiMain::sliderPathSize{100, 200, 3, 300, "Path Size", 30};
 
-guiMain::guiMain() { systems.clear(); }
+guiMain::guiMain()
+    : menuOpen{false}
+    , menuButton{sf::Vector2f(30, 24)}
+    , menuPanel{sf::Vector2f(380, 220)} {
+    systems.clear();
+
+    menuButton.setPosition(sf::Vector2f(10, 10));
+    menuButton.setFillColor(sf::Color(25, 29, 33, 200));
+    menuButton.setOutlineColor(sf::Color(192, 192, 192));
+    menuButton.setOutlineThickness(1);
+
+    menuPanel.setPosition(sf::Vector2f(0, 40));
+    menuPanel.setFillColor(sf::Color(25, 29, 33, 200));
+}
 
 // Test d'interface graphique : les manipulations des tuiles peuvent se faire au clavier
 void guiMain::play(SolarSystem *system) {
@@ -17,18 +30,15 @@ void guiMain::play(SolarSystem *system) {
     window.setFramerateLimit(60);
     window.setPosition(sf::Vector2i(0, 50));
     sf::Vector2f Center(system->getCenter().getX(), system->getCenter().getY());
-    double HalfSizeX = 5 * GlobalValues::ASTROUNIT;
-    double HalfSizeY = 5 * GlobalValues::ASTROUNIT;
-    sf::Vector2f HalfSize(HalfSizeX, HalfSizeY);
-    sf::View View1(Center, HalfSize);
-    window.setView(View1);
+    // Initial scale: 5 AU across 900 pixels, kept the same whatever the window size
+    const float worldPerPixel = 5 * GlobalValues::ASTROUNIT / 900;
+    auto homeView = [&]() {
+        return sf::View(Center, sf::Vector2f(window.getSize()) * worldPerPixel);
+    };
+    window.setView(homeView());
+    sf::Vector2u windowSize = window.getSize();
 
-    // Slider window
-    sf::RenderWindow sliderWindow(sf::VideoMode(sf::Vector2u(500, 500)), "Slider!");
-    sliderWindow.setFramerateLimit(60);
-    sliderWindow.setPosition(sf::Vector2i(50, 10));
-
-    while (window.isOpen() && sliderWindow.isOpen()) {
+    while (window.isOpen()) {
         GlobalValues::updateGlobalValues();
         // Updating principal window
         window.clear(Color::Black);
@@ -38,13 +48,8 @@ void guiMain::play(SolarSystem *system) {
             this->drawAllObjects(system, &window);
             this->drawPaths(system, &window);
         }
+        this->drawMenu(window);
         window.display();
-
-        // Updating slider window
-        sliderWindow.clear(sf::Color(25, 29, 33));
-        sliderTimeScale.draw(sliderWindow);
-        sliderPathSize.draw(sliderWindow);
-        sliderWindow.display();
 
         // defining zoom speed
         const float zoomAmount{1.1f}; // zoom by 10%
@@ -56,18 +61,33 @@ void guiMain::play(SolarSystem *system) {
             while (auto event = window.pollEvent()) {
                 if (event->is<sf::Event::Closed>()) {
                     window.close();
-                    sliderWindow.close();
+                }
+
+                // Resize the view with the window so objects are not stretched,
+                // keeping the current zoom level and center
+                if (auto resized = event->getIf<sf::Event::Resized>()) {
+                    sf::View view = window.getView();
+                    view.setSize(sf::Vector2f(view.getSize().x * resized->size.x / windowSize.x,
+                                              view.getSize().y * resized->size.y / windowSize.y));
+                    window.setView(view);
+                    windowSize = resized->size;
                 }
 
                 if (auto scroll = event->getIf<sf::Event::MouseWheelScrolled>()) {
-                    if (scroll->delta > 0)
+                    if (isOverMenu(scroll->position)) {
+                        // no zoom while scrolling over the menu
+                    } else if (scroll->delta > 0)
                         zoomViewAt(sf::Vector2i(scroll->position), window, 1.f / zoomAmount);
                     else
                         zoomViewAt(sf::Vector2i(scroll->position), window, zoomAmount);
                 }
 
                 if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
-                    if (mouse->button == sf::Mouse::Button::Right) {
+                    if (mouse->button == sf::Mouse::Button::Left &&
+                        menuButton.getGlobalBounds().contains(sf::Vector2f(mouse->position))) {
+                        menuOpen = !menuOpen;
+                    }
+                    if (mouse->button == sf::Mouse::Button::Right && !isOverMenu(mouse->position)) {
                         sf::Vector2f worldPos = window.mapPixelToCoords(mouse->position);
                         SolarSystem *newSystem = new SolarSystem(Vector2D{worldPos.x, worldPos.y});
                         for (int i = 0; i < 100; i++)
@@ -80,20 +100,45 @@ void guiMain::play(SolarSystem *system) {
 
                 if (auto key = event->getIf<sf::Event::KeyPressed>()) {
                     if (key->code == sf::Keyboard::Key::Backspace) {
-                        window.setView(View1);
+                        window.setView(homeView());
                     }
-                }
-            }
-
-            // The slider window must also be polled, otherwise it stops responding
-            while (auto event = sliderWindow.pollEvent()) {
-                if (event->is<sf::Event::Closed>()) {
-                    window.close();
-                    sliderWindow.close();
+                    if (key->code == sf::Keyboard::Key::M) {
+                        menuOpen = !menuOpen;
+                    }
                 }
             }
         }
     }
+}
+
+// Draws the menu button and, if open, the slider panel in screen coordinates
+void guiMain::drawMenu(sf::RenderWindow &window) {
+    const sf::View worldView = window.getView();
+    // 1 unit = 1 pixel of the current window size, so the menu never stretches
+    window.setView(sf::View(sf::FloatRect({0, 0}, sf::Vector2f(window.getSize()))));
+
+    window.draw(menuButton);
+    // three bars of the "hamburger" icon
+    for (int i = 0; i < 3; i++) {
+        sf::RectangleShape bar(sf::Vector2f(20, 2));
+        bar.setPosition(sf::Vector2f(15, 16 + i * 6));
+        bar.setFillColor(sf::Color(192, 192, 192));
+        window.draw(bar);
+    }
+
+    if (menuOpen) {
+        window.draw(menuPanel);
+        sliderTimeScale.draw(window);
+        sliderPathSize.draw(window);
+    }
+
+    window.setView(worldView);
+}
+
+bool guiMain::isOverMenu(sf::Vector2i pixel) {
+    const sf::Vector2f point(pixel);
+    return menuButton.getGlobalBounds().contains(point) ||
+           (menuOpen && menuPanel.getGlobalBounds().contains(point));
 }
 
 void guiMain::drawAllObjects(SolarSystem *system, RenderWindow *window) {
