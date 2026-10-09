@@ -13,9 +13,7 @@ int main() {
         system->generateXAxisPlanet();
 
     guiMain g{};
-    g.play(system);
-
-    delete system;
+    g.play(system); // guiMain takes ownership of system
 
     return 0;
 }

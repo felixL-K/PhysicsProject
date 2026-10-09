@@ -22,8 +22,8 @@ class guiMain {
     virtual ~guiMain();
     void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom);
 
-    static SliderSFML getSliderTimeScale();
-    static SliderSFML getSliderPathSize();
+    static SliderSFML &getSliderTimeScale();
+    static SliderSFML &getSliderPathSize();
 };
 
 #endif

@@ -13,9 +13,8 @@ int main() {
         system->generateRandomPlanet();
 
     guiMain g{};
-    g.play(system);
+    g.play(system); // guiMain takes ownership of system
 
-    delete system;
 
     return 0;
 }

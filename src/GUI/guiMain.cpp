@@ -67,17 +67,14 @@ void guiMain::play(SolarSystem *system) {
                 }
 
                 if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
-                    if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>()) {
-                        if (mouse->button == sf::Mouse::Button::Right) {
-                            sf::Vector2f worldPos = window.mapPixelToCoords(mouse->position);
-                            SolarSystem *newSystem =
-                                new SolarSystem(Vector2D{worldPos.x, worldPos.y});
-                            for (int i = 0; i < 100; i++)
-                                newSystem->generateXAxisPlanet();
-                            systems.push_back(newSystem);
-                            std::cout << "Created new SolarSystem at: " << worldPos.x << ", "
-                                      << worldPos.y << std::endl;
-                        }
+                    if (mouse->button == sf::Mouse::Button::Right) {
+                        sf::Vector2f worldPos = window.mapPixelToCoords(mouse->position);
+                        SolarSystem *newSystem = new SolarSystem(Vector2D{worldPos.x, worldPos.y});
+                        for (int i = 0; i < 100; i++)
+                            newSystem->generateXAxisPlanet();
+                        systems.push_back(newSystem);
+                        std::cout << "Created new SolarSystem at: " << worldPos.x << ", "
+                                  << worldPos.y << std::endl;
                     }
                 }
 
@@ -85,6 +82,14 @@ void guiMain::play(SolarSystem *system) {
                     if (key->code == sf::Keyboard::Key::Backspace) {
                         window.setView(View1);
                     }
+                }
+            }
+
+            // The slider window must also be polled, otherwise it stops responding
+            while (auto event = sliderWindow.pollEvent()) {
+                if (event->is<sf::Event::Closed>()) {
+                    window.close();
+                    sliderWindow.close();
                 }
             }
         }
@@ -129,6 +134,6 @@ void guiMain::zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoo
     window.setView(view);
 }
 
-SliderSFML guiMain::getSliderTimeScale() { return sliderTimeScale; }
+SliderSFML &guiMain::getSliderTimeScale() { return sliderTimeScale; }
 
-SliderSFML guiMain::getSliderPathSize() { return sliderPathSize; }
+SliderSFML &guiMain::getSliderPathSize() { return sliderPathSize; }
