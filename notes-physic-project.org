@@ -1,0 +1,20 @@
+
+
+** Documentation
+NASA Planetary Fact Sheet - Metric
+https://nssdc.gsfc.nasa.gov/planetary/factsheet/
+
+** Calculations
+*** starting speeds
+Vis-viva equation
+\[v = \sqrt{GM\left(\frac{2}{r} - \frac{1}{a}\right)}\]
+- G = 6.674e-11, the gravitational constant (GRAVITATIONALCONSTANT)
+- M = 1.989e30 kg, the Sun's mass (SOLARMASS), so GM ≈ 1.327e20
+- r = the planet's current distance from the Sun
+- a = the semi-major axis, half the longest width of the ellipse: \\
+  a = (perihelion + aphelion) / 2
+
+
+** TODO
+- Add satelites
+-

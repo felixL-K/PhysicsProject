@@ -26,6 +26,8 @@ add_executable(sliderMain mainSlider.cpp)
 
 add_executable(lessRandMain MainClassLessRand.cpp)
 
+add_executable(toScaleMain MainToScale.cpp)
+
 
 # target_link_directories(physicTest PRIVATE ${CMAKE_SOURCE_DIR}/../PhysicLib/build)
 # because we did ligns 7-9 in ../PhysicLib/CMakeLists.txt
@@ -36,3 +38,4 @@ target_link_libraries(sliderMain physicProjectGUI physicProject sfml-graphics sf
 
 target_link_libraries(lessRandMain physicProjectGUI physicProject sfml-graphics sfml-window sfml-system sfml-audio)
 
+target_link_libraries(toScaleMain physicProjectGUI physicProject sfml-graphics sfml-window sfml-system sfml-audio)

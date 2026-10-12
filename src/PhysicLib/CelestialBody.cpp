@@ -2,6 +2,7 @@
 #include "../Main/MainClass.hpp"
 #include "GlobalValues.hpp"
 #include "SolarSystem.hpp"
+#include <algorithm>
 #include <iostream>
 
 // Constructeur
@@ -55,15 +56,10 @@ CelestialBody::~CelestialBody() {
 // getters & setters
 double CelestialBody::getDiameter() const { return diameter; }
 double CelestialBody::getMass() const { return mass; }
-Vector2D CelestialBody::getPosition() const {
-    // return Vector2D{position};
-    return position;
-}
-Vector2D CelestialBody::getVelocity() const {
-    // return Vector2D{velocity};
-    return velocity;
-}
+Vector2D CelestialBody::getPosition() const { return position; }
+Vector2D CelestialBody::getVelocity() const { return velocity; }
 sf::Color CelestialBody::getColor() const { return color; }
+
 void CelestialBody::setDiameter(double x) { diameter = x; }
 void CelestialBody::setMass(double x) { mass = x; }
 void CelestialBody::setPosition(Vector2D x) { position = x; }
@@ -112,17 +108,12 @@ bool operator==(const CelestialBody &lhs, const CelestialBody &rhs) {
 }
 
 void CelestialBody::drawObject(sf::RenderWindow *window) {
-    sf::CircleShape circle1;
-    // if(diameter<1000000) {
-    //     circle1.setRadius(1000000);
-    // } else {
-    //     circle1.setRadius(diameter);
-    // }
-    circle1.setRadius(diameter);
+    // Drawn at real size, but at least 3 pixels wide so small bodies stay visible
+    const float pixelSize = window->getView().getSize().x / window->getSize().x;
+    const float radius = std::max(static_cast<float>(diameter / 2), 3 * pixelSize);
+    sf::CircleShape circle1(radius);
+    circle1.setOrigin(sf::Vector2f(radius, radius));
+    circle1.setPosition(sf::Vector2f(position.getX(), position.getY()));
     circle1.setFillColor(color);
-    circle1.setPosition(
-        sf::Vector2f(position.getX() - diameter / 2, position.getY() - diameter / 2));
-    circle1.setOrigin(sf::Vector2f(diameter / 2, diameter / 2));
-    // circle1.setRadius(50);
     window->draw(circle1);
 }
