@@ -152,6 +152,18 @@ void guiMain::drawAllObjects(SolarSystem *system, RenderWindow *window) {
 void guiMain::drawAllGalaxies(RenderWindow *window) {
     for (int i = 0; i < systems.size(); i++) {
 	Galaxy *galaxy = systems[i];
+
+	// Outline of the galaxy, 1 pixel thick whatever the zoom
+	const float radius = galaxy->getDimension().getX() / 2;
+	const float pixelSize = window->getView().getSize().x / window->getSize().x;
+	sf::CircleShape outline(radius, 200);
+	outline.setOrigin(sf::Vector2f(radius, radius));
+	outline.setPosition(sf::Vector2f(galaxy->getCenter().getX(), galaxy->getCenter().getY()));
+	outline.setFillColor(sf::Color::Transparent);
+	outline.setOutlineColor(sf::Color(120, 120, 200));
+	outline.setOutlineThickness(pixelSize);
+	window->draw(outline);
+
 	for (int j = 0; j < galaxy->getSolarSystems().size(); j++) {
 	    SolarSystem *system = galaxy->getSolarSystems()[j];
 	    drawAllObjects(system, window);
